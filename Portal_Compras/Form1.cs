@@ -12,6 +12,7 @@ namespace Portal_Compras
 {
     public partial class Form1 : Form
     {
+        Portal portal = new Portal();
         public Form1()
         {
             InitializeComponent();
@@ -21,20 +22,41 @@ namespace Portal_Compras
         {
             string username = txt_username.Text;
             string password = txt_password.Text;
-            if(true) // replace with storage procedure user exist
+
+            if(username == "JQuintas") // replace with storage procedure user exist
             {
                 this.Visible = false;
-                Portal portal = new Portal();
+                portal = new Portal();
+                portal.FormClosed += onForm2Close;
                 portal.ShowDialog();
-                this.Visible = true;
             }
         }
+
+        private void onForm2Close(object sender, FormClosedEventArgs e)
+        {
+            this.Visible = true;
+        }
+
         private void btn_openRegistrationForm_Click(object sender, EventArgs e)
         {
             this.Visible=false; 
             RegistrationForm regForm = new RegistrationForm();
             regForm.ShowDialog();
             this.Visible = true;
+        }
+
+        private void chb_showPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chb_showPassword.Checked)
+            {
+                chb_showPassword.ImageIndex = 0;
+                txt_password.PasswordChar = '\0';
+            }
+            else
+            {
+                chb_showPassword.ImageIndex = 1;
+                txt_password.PasswordChar = '*';
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Portal_Compras
 {
     public partial class Portal : Form
     {
-        private EntitiesBarEscola db = new EntitiesBarEscola();
+         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
 
         public Portal()
         {
@@ -17,21 +17,21 @@ namespace Portal_Compras
         private void RefreshData()
         {
             cmb_categoryFilter.Items.Clear();
-            foreach (TYPE category in db.TYPE)
+            foreach (TYPE category in EntitiesBarEscola.TYPE)
             {
                 if (category.DELETE_DATE == null)
                 {
                     cmb_categoryFilter.Items.Add(category.NAME);
                 }
             }
-            foreach (Product product in db.Product)
+            foreach (Product product in EntitiesBarEscola.Product)
             {
-                if (db.TYPE.Where(t => t.ID == product.Type_Id).First().DELETE_DATE != null)
+                if (EntitiesBarEscola.TYPE.Where(t => t.ID == product.Type_Id).First().DELETE_DATE != null)
                 {
                     int id = product.ID;
                     string name = product.Name;
-                    decimal price = product.Price_Discount; // MAKE A NULL CHECK
-                    db.ApplyDiscounts();
+                    decimal price = Convert.ToDecimal(product.Price_Discount);
+                    EntitiesBarEscola.ApplyDiscounts();
                 }
             }
         }
