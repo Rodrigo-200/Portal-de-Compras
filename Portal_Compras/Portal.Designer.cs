@@ -35,7 +35,6 @@
             this.btn_refreshProducts = new System.Windows.Forms.Button();
             this.lbl_Search_Message = new System.Windows.Forms.Label();
             this.txt_searchBar = new System.Windows.Forms.TextBox();
-            this.btn_openCart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_addToCart = new System.Windows.Forms.Button();
             this.nud_quanity = new System.Windows.Forms.NumericUpDown();
@@ -44,6 +43,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmb_categoryFilter = new System.Windows.Forms.ComboBox();
             this.tp_History = new System.Windows.Forms.TabPage();
             this.lstvw_history = new System.Windows.Forms.ListView();
@@ -53,10 +53,10 @@
             this.lbl_name = new System.Windows.Forms.Label();
             this.nud_depositMoney = new System.Windows.Forms.NumericUpDown();
             this.btn_depositMoney = new System.Windows.Forms.Button();
-            this.btn_logout = new System.Windows.Forms.Button();
             this.lbl_totalBalance = new System.Windows.Forms.Label();
             this.lbl_username = new System.Windows.Forms.Label();
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btn_openCart = new System.Windows.Forms.Button();
+            this.btn_logout = new System.Windows.Forms.Button();
             this.tc_Options.SuspendLayout();
             this.tp_Buy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_quanity)).BeginInit();
@@ -70,10 +70,11 @@
             this.tc_Options.Controls.Add(this.tp_Buy);
             this.tc_Options.Controls.Add(this.tp_History);
             this.tc_Options.Controls.Add(this.tp_Profile);
-            this.tc_Options.Location = new System.Drawing.Point(4, 2);
+            this.tc_Options.Location = new System.Drawing.Point(3, 2);
+            this.tc_Options.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tc_Options.Name = "tc_Options";
             this.tc_Options.SelectedIndex = 0;
-            this.tc_Options.Size = new System.Drawing.Size(489, 445);
+            this.tc_Options.Size = new System.Drawing.Size(367, 479);
             this.tc_Options.TabIndex = 0;
             // 
             // tp_Buy
@@ -89,10 +90,11 @@
             this.tp_Buy.Controls.Add(this.nud_quanity);
             this.tp_Buy.Controls.Add(this.lstvw_products);
             this.tp_Buy.Controls.Add(this.cmb_categoryFilter);
-            this.tp_Buy.Location = new System.Drawing.Point(4, 25);
+            this.tp_Buy.Location = new System.Drawing.Point(4, 22);
+            this.tp_Buy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tp_Buy.Name = "tp_Buy";
-            this.tp_Buy.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_Buy.Size = new System.Drawing.Size(481, 416);
+            this.tp_Buy.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tp_Buy.Size = new System.Drawing.Size(359, 453);
             this.tp_Buy.TabIndex = 0;
             this.tp_Buy.Text = "Compras";
             this.tp_Buy.UseVisualStyleBackColor = true;
@@ -100,27 +102,30 @@
             // chb_showFavorites
             // 
             this.chb_showFavorites.AutoSize = true;
-            this.chb_showFavorites.Location = new System.Drawing.Point(165, 49);
+            this.chb_showFavorites.Location = new System.Drawing.Point(125, 18);
+            this.chb_showFavorites.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chb_showFavorites.Name = "chb_showFavorites";
-            this.chb_showFavorites.Size = new System.Drawing.Size(146, 20);
+            this.chb_showFavorites.Size = new System.Drawing.Size(118, 17);
             this.chb_showFavorites.TabIndex = 11;
             this.chb_showFavorites.Text = "Mostrar só favoritos";
             this.chb_showFavorites.UseVisualStyleBackColor = true;
             // 
             // btn_addToFavorites
             // 
-            this.btn_addToFavorites.Location = new System.Drawing.Point(105, 303);
+            this.btn_addToFavorites.Location = new System.Drawing.Point(75, 424);
+            this.btn_addToFavorites.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_addToFavorites.Name = "btn_addToFavorites";
-            this.btn_addToFavorites.Size = new System.Drawing.Size(90, 30);
+            this.btn_addToFavorites.Size = new System.Drawing.Size(68, 24);
             this.btn_addToFavorites.TabIndex = 10;
             this.btn_addToFavorites.Text = "Favorito";
             this.btn_addToFavorites.UseVisualStyleBackColor = true;
             // 
             // btn_refreshProducts
             // 
-            this.btn_refreshProducts.Location = new System.Drawing.Point(7, 303);
+            this.btn_refreshProducts.Location = new System.Drawing.Point(2, 424);
+            this.btn_refreshProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_refreshProducts.Name = "btn_refreshProducts";
-            this.btn_refreshProducts.Size = new System.Drawing.Size(92, 30);
+            this.btn_refreshProducts.Size = new System.Drawing.Size(69, 24);
             this.btn_refreshProducts.TabIndex = 9;
             this.btn_refreshProducts.Text = "Refresh";
             this.btn_refreshProducts.UseVisualStyleBackColor = true;
@@ -128,54 +133,48 @@
             // lbl_Search_Message
             // 
             this.lbl_Search_Message.AutoSize = true;
-            this.lbl_Search_Message.Location = new System.Drawing.Point(6, 79);
+            this.lbl_Search_Message.Location = new System.Drawing.Point(4, 64);
+            this.lbl_Search_Message.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Search_Message.Name = "lbl_Search_Message";
-            this.lbl_Search_Message.Size = new System.Drawing.Size(0, 16);
+            this.lbl_Search_Message.Size = new System.Drawing.Size(0, 13);
             this.lbl_Search_Message.TabIndex = 6;
             // 
             // txt_searchBar
             // 
-            this.txt_searchBar.Location = new System.Drawing.Point(4, 76);
+            this.txt_searchBar.Location = new System.Drawing.Point(4, 44);
+            this.txt_searchBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_searchBar.Name = "txt_searchBar";
-            this.txt_searchBar.Size = new System.Drawing.Size(471, 22);
+            this.txt_searchBar.Size = new System.Drawing.Size(353, 20);
             this.txt_searchBar.TabIndex = 5;
             this.txt_searchBar.Tag = "";
             this.txt_searchBar.Text = "Pesquise um produto";
             this.txt_searchBar.Enter += new System.EventHandler(this.txt_searchBar_Enter);
             this.txt_searchBar.Leave += new System.EventHandler(this.txt_searchBar_Leave);
             // 
-            // btn_openCart
-            // 
-            this.btn_openCart.BackgroundImage = global::Portal_Compras.Properties.Resources.shopping_cart;
-            this.btn_openCart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_openCart.Location = new System.Drawing.Point(425, 6);
-            this.btn_openCart.Name = "btn_openCart";
-            this.btn_openCart.Size = new System.Drawing.Size(50, 45);
-            this.btn_openCart.TabIndex = 1;
-            this.btn_openCart.UseVisualStyleBackColor = true;
-            this.btn_openCart.Click += new System.EventHandler(this.btn_Cart_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 31);
+            this.label1.Location = new System.Drawing.Point(4, 3);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 16);
+            this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Filtrar produtos";
             // 
             // btn_addToCart
             // 
-            this.btn_addToCart.Location = new System.Drawing.Point(307, 329);
+            this.btn_addToCart.Location = new System.Drawing.Point(228, 424);
+            this.btn_addToCart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_addToCart.Name = "btn_addToCart";
-            this.btn_addToCart.Size = new System.Drawing.Size(168, 30);
+            this.btn_addToCart.Size = new System.Drawing.Size(126, 24);
             this.btn_addToCart.TabIndex = 3;
             this.btn_addToCart.Text = "Adicionar ao Carrinho";
             this.btn_addToCart.UseVisualStyleBackColor = true;
             // 
             // nud_quanity
             // 
-            this.nud_quanity.Location = new System.Drawing.Point(384, 302);
+            this.nud_quanity.Location = new System.Drawing.Point(286, 400);
+            this.nud_quanity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nud_quanity.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -187,7 +186,7 @@
             0,
             0});
             this.nud_quanity.Name = "nud_quanity";
-            this.nud_quanity.Size = new System.Drawing.Size(90, 22);
+            this.nud_quanity.Size = new System.Drawing.Size(68, 20);
             this.nud_quanity.TabIndex = 2;
             this.nud_quanity.Value = new decimal(new int[] {
             1,
@@ -205,10 +204,11 @@
             this.columnHeader6});
             this.lstvw_products.FullRowSelect = true;
             this.lstvw_products.HideSelection = false;
-            this.lstvw_products.Location = new System.Drawing.Point(6, 104);
+            this.lstvw_products.Location = new System.Drawing.Point(4, 68);
+            this.lstvw_products.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstvw_products.MultiSelect = false;
             this.lstvw_products.Name = "lstvw_products";
-            this.lstvw_products.Size = new System.Drawing.Size(469, 193);
+            this.lstvw_products.Size = new System.Drawing.Size(353, 328);
             this.lstvw_products.TabIndex = 1;
             this.lstvw_products.UseCompatibleStateImageBehavior = false;
             this.lstvw_products.View = System.Windows.Forms.View.Details;
@@ -220,36 +220,43 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "NAME";
+            this.columnHeader2.Text = "Nome";
             this.columnHeader2.Width = 140;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "PRICE";
+            this.columnHeader3.Text = "Preço";
             this.columnHeader3.Width = 80;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "DISCOUNT";
+            this.columnHeader4.Text = "Desconto";
             this.columnHeader4.Width = 100;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Tipo";
+            this.columnHeader6.Width = 120;
             // 
             // cmb_categoryFilter
             // 
             this.cmb_categoryFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_categoryFilter.FormattingEnabled = true;
-            this.cmb_categoryFilter.Location = new System.Drawing.Point(7, 50);
+            this.cmb_categoryFilter.Location = new System.Drawing.Point(6, 19);
+            this.cmb_categoryFilter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmb_categoryFilter.Name = "cmb_categoryFilter";
-            this.cmb_categoryFilter.Size = new System.Drawing.Size(140, 24);
+            this.cmb_categoryFilter.Size = new System.Drawing.Size(106, 21);
             this.cmb_categoryFilter.TabIndex = 0;
             // 
             // tp_History
             // 
             this.tp_History.Controls.Add(this.lstvw_history);
             this.tp_History.Controls.Add(this.btn_cancelBuy);
-            this.tp_History.Location = new System.Drawing.Point(4, 25);
+            this.tp_History.Location = new System.Drawing.Point(4, 22);
+            this.tp_History.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tp_History.Name = "tp_History";
-            this.tp_History.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_History.Size = new System.Drawing.Size(411, 416);
+            this.tp_History.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tp_History.Size = new System.Drawing.Size(359, 453);
             this.tp_History.TabIndex = 1;
             this.tp_History.Text = "Histórico";
             this.tp_History.UseVisualStyleBackColor = true;
@@ -257,17 +264,19 @@
             // lstvw_history
             // 
             this.lstvw_history.HideSelection = false;
-            this.lstvw_history.Location = new System.Drawing.Point(7, 16);
+            this.lstvw_history.Location = new System.Drawing.Point(5, 4);
+            this.lstvw_history.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstvw_history.Name = "lstvw_history";
-            this.lstvw_history.Size = new System.Drawing.Size(398, 358);
+            this.lstvw_history.Size = new System.Drawing.Size(349, 416);
             this.lstvw_history.TabIndex = 7;
             this.lstvw_history.UseCompatibleStateImageBehavior = false;
             // 
             // btn_cancelBuy
             // 
-            this.btn_cancelBuy.Location = new System.Drawing.Point(278, 380);
+            this.btn_cancelBuy.Location = new System.Drawing.Point(259, 424);
+            this.btn_cancelBuy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_cancelBuy.Name = "btn_cancelBuy";
-            this.btn_cancelBuy.Size = new System.Drawing.Size(127, 30);
+            this.btn_cancelBuy.Size = new System.Drawing.Size(95, 24);
             this.btn_cancelBuy.TabIndex = 1;
             this.btn_cancelBuy.Text = "Cancelar Compra";
             this.btn_cancelBuy.UseVisualStyleBackColor = true;
@@ -281,10 +290,11 @@
             this.tp_Profile.Controls.Add(this.btn_logout);
             this.tp_Profile.Controls.Add(this.lbl_totalBalance);
             this.tp_Profile.Controls.Add(this.lbl_username);
-            this.tp_Profile.Location = new System.Drawing.Point(4, 25);
+            this.tp_Profile.Location = new System.Drawing.Point(4, 22);
+            this.tp_Profile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tp_Profile.Name = "tp_Profile";
-            this.tp_Profile.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_Profile.Size = new System.Drawing.Size(411, 416);
+            this.tp_Profile.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tp_Profile.Size = new System.Drawing.Size(359, 453);
             this.tp_Profile.TabIndex = 2;
             this.tp_Profile.Text = "Perfil";
             this.tp_Profile.UseVisualStyleBackColor = true;
@@ -292,82 +302,104 @@
             // lbl_NIF
             // 
             this.lbl_NIF.AutoSize = true;
-            this.lbl_NIF.Location = new System.Drawing.Point(23, 83);
+            this.lbl_NIF.Location = new System.Drawing.Point(4, 90);
+            this.lbl_NIF.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_NIF.Name = "lbl_NIF";
-            this.lbl_NIF.Size = new System.Drawing.Size(28, 16);
+            this.lbl_NIF.Size = new System.Drawing.Size(24, 13);
             this.lbl_NIF.TabIndex = 7;
             this.lbl_NIF.Text = "NIF";
             // 
             // lbl_name
             // 
             this.lbl_name.AutoSize = true;
-            this.lbl_name.Location = new System.Drawing.Point(23, 52);
+            this.lbl_name.Location = new System.Drawing.Point(4, 45);
+            this.lbl_name.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_name.Name = "lbl_name";
-            this.lbl_name.Size = new System.Drawing.Size(44, 16);
+            this.lbl_name.Size = new System.Drawing.Size(35, 13);
             this.lbl_name.TabIndex = 6;
             this.lbl_name.Text = "Name";
             // 
             // nud_depositMoney
             // 
             this.nud_depositMoney.DecimalPlaces = 2;
-            this.nud_depositMoney.Location = new System.Drawing.Point(292, 55);
+            this.nud_depositMoney.Location = new System.Drawing.Point(219, 60);
+            this.nud_depositMoney.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nud_depositMoney.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.nud_depositMoney.Name = "nud_depositMoney";
-            this.nud_depositMoney.Size = new System.Drawing.Size(96, 22);
+            this.nud_depositMoney.Size = new System.Drawing.Size(72, 20);
             this.nud_depositMoney.TabIndex = 5;
             // 
             // btn_depositMoney
             // 
-            this.btn_depositMoney.Location = new System.Drawing.Point(292, 83);
+            this.btn_depositMoney.Location = new System.Drawing.Point(219, 82);
+            this.btn_depositMoney.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_depositMoney.Name = "btn_depositMoney";
-            this.btn_depositMoney.Size = new System.Drawing.Size(96, 27);
+            this.btn_depositMoney.Size = new System.Drawing.Size(72, 22);
             this.btn_depositMoney.TabIndex = 4;
             this.btn_depositMoney.Text = "Deposit";
             this.btn_depositMoney.UseVisualStyleBackColor = true;
             // 
-            // btn_logout
-            // 
-            this.btn_logout.Location = new System.Drawing.Point(315, 381);
-            this.btn_logout.Name = "btn_logout";
-            this.btn_logout.Size = new System.Drawing.Size(89, 29);
-            this.btn_logout.TabIndex = 2;
-            this.btn_logout.Text = "Logout";
-            this.btn_logout.UseVisualStyleBackColor = true;
-            // 
             // lbl_totalBalance
             // 
             this.lbl_totalBalance.AutoSize = true;
-            this.lbl_totalBalance.Location = new System.Drawing.Point(289, 21);
+            this.lbl_totalBalance.Location = new System.Drawing.Point(217, 32);
+            this.lbl_totalBalance.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_totalBalance.Name = "lbl_totalBalance";
-            this.lbl_totalBalance.Size = new System.Drawing.Size(91, 16);
+            this.lbl_totalBalance.Size = new System.Drawing.Size(75, 13);
             this.lbl_totalBalance.TabIndex = 1;
             this.lbl_totalBalance.Text = "Saldo total: 0€";
             // 
             // lbl_username
             // 
             this.lbl_username.AutoSize = true;
-            this.lbl_username.Location = new System.Drawing.Point(23, 21);
+            this.lbl_username.Location = new System.Drawing.Point(4, 4);
+            this.lbl_username.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_username.Name = "lbl_username";
-            this.lbl_username.Size = new System.Drawing.Size(70, 16);
+            this.lbl_username.Size = new System.Drawing.Size(55, 13);
             this.lbl_username.TabIndex = 0;
             this.lbl_username.Text = "Username";
             // 
-            // columnHeader6
+            // btn_openCart
             // 
-            this.columnHeader6.Text = "CATEGORY";
-            this.columnHeader6.Width = 120;
+            this.btn_openCart.BackgroundImage = global::Portal_Compras.Properties.Resources.shopping_cart;
+            this.btn_openCart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_openCart.FlatAppearance.BorderSize = 0;
+            this.btn_openCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_openCart.Location = new System.Drawing.Point(331, 3);
+            this.btn_openCart.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_openCart.Name = "btn_openCart";
+            this.btn_openCart.Size = new System.Drawing.Size(24, 23);
+            this.btn_openCart.TabIndex = 1;
+            this.btn_openCart.UseVisualStyleBackColor = true;
+            this.btn_openCart.Click += new System.EventHandler(this.btn_Cart_Click);
+            // 
+            // btn_logout
+            // 
+            this.btn_logout.BackColor = System.Drawing.Color.Transparent;
+            this.btn_logout.BackgroundImage = global::Portal_Compras.Properties.Resources.logout;
+            this.btn_logout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_logout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.btn_logout.FlatAppearance.BorderSize = 0;
+            this.btn_logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_logout.Location = new System.Drawing.Point(330, 4);
+            this.btn_logout.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_logout.Name = "btn_logout";
+            this.btn_logout.Size = new System.Drawing.Size(24, 22);
+            this.btn_logout.TabIndex = 2;
+            this.btn_logout.UseVisualStyleBackColor = false;
             // 
             // Portal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 450);
+            this.ClientSize = new System.Drawing.Size(372, 483);
             this.Controls.Add(this.tc_Options);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "Portal";
             this.Text = "Portal";
