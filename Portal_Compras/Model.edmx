@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BUY_PRODUCTS">
           <Key>
             <PropertyRef Name="ID_BUY" />
@@ -132,6 +132,7 @@
         </Function>
         <Function Name="GetFilteredProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="SearchDesc" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BUY_PRODUCTS" EntityType="Self.BUY_PRODUCTS" Schema="dbo" store:Type="Tables" />
@@ -161,8 +162,7 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -326,10 +326,11 @@
           </AssociationSet>
           <FunctionImport Name="ApplyDiscounts" />
           <FunctionImport Name="GET_PRODUCTS" ReturnType="Collection(Model.GET_PRODUCTS_Result)">
-            <Parameter Name="id_product" Mode="In" Type="Int32" />
+          <Parameter Name="id_product" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetFilteredProducts" ReturnType="Collection(Model.GetFilteredProducts_Result)">
             <Parameter Name="SearchText" Mode="In" Type="String" />
+            <Parameter Name="SearchDesc" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GET_PRODUCTS_Result">

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -26,7 +28,7 @@ namespace Portal_Compras
             }
             foreach (Product product in EntitiesBarEscola.Product)
             {
-                if (EntitiesBarEscola.TYPE.Where(t => t.ID == product.Type_Id).First().DELETE_DATE != null)
+                if (EntitiesBarEscola.TYPE.Where(t => t.ID == product.Type_Id).First().DELETE_DATE == null)
                 {
                     int id = product.ID;
                     string name = product.Name;

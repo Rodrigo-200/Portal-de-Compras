@@ -48,13 +48,17 @@ namespace Portal_Compras
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_PRODUCTS_Result>("GET_PRODUCTS", id_productParameter);
         }
     
-        public virtual ObjectResult<GetFilteredProducts_Result> GetFilteredProducts(string searchText)
+        public virtual ObjectResult<GetFilteredProducts_Result> GetFilteredProducts(string searchText, Nullable<bool> searchDesc)
         {
             var searchTextParameter = searchText != null ?
                 new ObjectParameter("SearchText", searchText) :
                 new ObjectParameter("SearchText", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFilteredProducts_Result>("GetFilteredProducts", searchTextParameter);
+            var searchDescParameter = searchDesc.HasValue ?
+                new ObjectParameter("SearchDesc", searchDesc) :
+                new ObjectParameter("SearchDesc", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFilteredProducts_Result>("GetFilteredProducts", searchTextParameter, searchDescParameter);
         }
     }
 }
