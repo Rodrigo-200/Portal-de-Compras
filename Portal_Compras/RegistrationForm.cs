@@ -21,9 +21,9 @@ namespace Portal_Compras
 
         private void btn_registerUser_Click(object sender, EventArgs e)
         {
-            string username = txt_name.Text;
-            string password = txt_password.Text;
-            string name = txt_username.Text;
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
+            string name = txtName.Text;
 
             if (db.CLIENT.FirstOrDefault(c => c.USERNAME == username) != null) // replace with storage procedure user exist
             {

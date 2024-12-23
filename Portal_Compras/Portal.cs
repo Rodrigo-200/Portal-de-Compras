@@ -26,6 +26,9 @@ namespace Portal_Compras
                     cmb_categoryFilter.Items.Add(category.NAME);
                 }
             }
+
+            EntitiesBarEscola.ApplyDiscounts();
+
             foreach (Product product in EntitiesBarEscola.Product)
             {
                 if (EntitiesBarEscola.TYPE.Where(t => t.ID == product.Type_Id).First().DELETE_DATE == null)
@@ -33,7 +36,6 @@ namespace Portal_Compras
                     int id = product.ID;
                     string name = product.Name;
                     decimal price = Convert.ToDecimal(product.Price_Discount);
-                    EntitiesBarEscola.ApplyDiscounts();
                 }
             }
         }
