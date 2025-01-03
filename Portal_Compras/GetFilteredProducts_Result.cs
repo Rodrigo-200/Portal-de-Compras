@@ -20,5 +20,9 @@ namespace Portal_Compras
         public Nullable<int> Stock { get; set; }
         public string Description { get; set; }
         public Nullable<decimal> Price_Discount { get; set; }
+        public Nullable<System.DateTime> FROM { get; set; }
+        public Nullable<System.DateTime> TO { get; set; }
+        public Nullable<double> PERCENTAGE { get; set; }
+        public string TypeName { get; set; }
     }
 }

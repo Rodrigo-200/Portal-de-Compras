@@ -31,6 +31,7 @@ namespace Portal_Compras
         public virtual DbSet<BUYS> BUYS { get; set; }
         public virtual DbSet<CLIENT> CLIENT { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
+        public virtual DbSet<Favorite_Product> Favorite_Product { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<TYPE> TYPE { get; set; }
     
@@ -46,6 +47,19 @@ namespace Portal_Compras
                 new ObjectParameter("id_product", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_PRODUCTS_Result>("GET_PRODUCTS", id_productParameter);
+        }
+    
+        public virtual ObjectResult<Login_Validation_Result> Login_Validation(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("Username", username) :
+                new ObjectParameter("Username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Login_Validation_Result>("Login_Validation", usernameParameter, passwordParameter);
         }
     
         public virtual ObjectResult<GetFilteredProducts_Result> GetFilteredProducts(string searchText, Nullable<bool> searchDesc)

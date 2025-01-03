@@ -19,6 +19,7 @@ namespace Portal_Compras
         {
             this.BUY_PRODUCTS = new HashSet<BUY_PRODUCTS>();
             this.Discount = new HashSet<Discount>();
+            this.Favorite_Product = new HashSet<Favorite_Product>();
         }
     
         public int ID { get; set; }
@@ -33,6 +34,8 @@ namespace Portal_Compras
         public virtual ICollection<BUY_PRODUCTS> BUY_PRODUCTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favorite_Product> Favorite_Product { get; set; }
         public virtual TYPE TYPE { get; set; }
     }
 }

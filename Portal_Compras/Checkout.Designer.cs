@@ -99,7 +99,6 @@
             this.btn_removeProducts.TabIndex = 5;
             this.btn_removeProducts.Text = "Remover";
             this.btn_removeProducts.UseVisualStyleBackColor = false;
-            this.btn_removeProducts.Click += new System.EventHandler(this.btn_removeProducts_Click);
             // 
             // nud_quantityRemoveProducts
             // 

@@ -13,6 +13,7 @@ namespace Portal_Compras
     public partial class Form1 : Form
     {
         Portal portal = new Portal();
+        EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
         public Form1()
         {
             InitializeComponent();
@@ -23,12 +24,25 @@ namespace Portal_Compras
             string username = txt_username.Text;
             string password = txt_password.Text;
 
-            if(username == "JQuintas") // replace with storage procedure user exist
+            if (Convert.ToBoolean(EntitiesBarEscola.Login_Validation(username, password).FirstOrDefault().UserExists == true))
             {
-                this.Visible = false;
-                portal = new Portal();
-                portal.FormClosed += onForm2Close;
-                portal.ShowDialog();
+                if (Convert.ToBoolean(EntitiesBarEscola.Login_Validation(username, password).FirstOrDefault().PasswordCorrect) == true)
+                {
+                    Generic.current_Logged_Client = EntitiesBarEscola.CLIENT.Where(p => p.USERNAME == username).FirstOrDefault();
+                    this.Visible = false;
+                    portal = new Portal();
+                    portal.FormClosed += onForm2Close;
+                    portal.ShowDialog();
+                    clearInputs();
+                }
+                else
+                {
+                    MessageBox.Show("Password incorreta");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Este utilizador não existe");
             }
         }
 
@@ -39,7 +53,7 @@ namespace Portal_Compras
 
         private void btn_openRegistrationForm_Click(object sender, EventArgs e)
         {
-            this.Visible=false; 
+            this.Visible = false;
             RegistrationForm regForm = new RegistrationForm();
             regForm.ShowDialog();
             this.Visible = true;
@@ -57,6 +71,12 @@ namespace Portal_Compras
                 chb_showPassword.ImageIndex = 1;
                 txt_password.PasswordChar = '*';
             }
+        }
+
+        private void clearInputs()
+        {
+            txt_username.Text = "";
+            txt_password.Text = "";
         }
     }
 }

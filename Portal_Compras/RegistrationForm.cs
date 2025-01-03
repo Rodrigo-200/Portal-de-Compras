@@ -25,7 +25,7 @@ namespace Portal_Compras
             string password = txtPassword.Text;
             string name = txtName.Text;
 
-            if (db.CLIENT.FirstOrDefault(c => c.USERNAME == username) != null) // replace with storage procedure user exist
+            if (db.CLIENT.FirstOrDefault(c => c.USERNAME == username) != null)
             {
                 MessageBox.Show("Erro");
             }
@@ -41,6 +41,10 @@ namespace Portal_Compras
 
                     db.CLIENT.Add(user);
                     db.SaveChanges();
+
+                    clearInputs();
+
+                    this.Close();
                 }
                 else
                 {
@@ -52,6 +56,13 @@ namespace Portal_Compras
         private void btn_GobackToLoginPage_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void clearInputs()
+        {
+            txtName.Text = "";
+            txtPassword.Text = "";
+            txtUsername.Text = "";
         }
     }
 }
