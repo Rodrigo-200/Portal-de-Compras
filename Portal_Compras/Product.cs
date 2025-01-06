@@ -18,6 +18,7 @@ namespace Portal_Compras
         public Product()
         {
             this.BUY_PRODUCTS = new HashSet<BUY_PRODUCTS>();
+            this.CART_ITEMS = new HashSet<CART_ITEMS>();
             this.Discount = new HashSet<Discount>();
             this.Favorite_Product = new HashSet<Favorite_Product>();
         }
@@ -32,6 +33,8 @@ namespace Portal_Compras
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BUY_PRODUCTS> BUY_PRODUCTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CART_ITEMS> CART_ITEMS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

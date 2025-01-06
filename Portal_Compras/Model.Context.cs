@@ -29,6 +29,8 @@ namespace Portal_Compras
     
         public virtual DbSet<BUY_PRODUCTS> BUY_PRODUCTS { get; set; }
         public virtual DbSet<BUYS> BUYS { get; set; }
+        public virtual DbSet<CART> CART { get; set; }
+        public virtual DbSet<CART_ITEMS> CART_ITEMS { get; set; }
         public virtual DbSet<CLIENT> CLIENT { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<Favorite_Product> Favorite_Product { get; set; }

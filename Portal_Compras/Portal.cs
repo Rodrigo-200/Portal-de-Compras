@@ -11,15 +11,17 @@ namespace Portal_Compras
     {
         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
 
-        public Portal()
+        public Portal(int tabPage = 0)
         {
             InitializeComponent();
+            tc_Options.SelectedIndex = tabPage;
             RefreshData();
         }
 
         private void RefreshData()
         {
             cbb_categoryFilter.Items.Clear();
+            cbb_categoryFilter.Items.Add("Todos");
             foreach (TYPE category in EntitiesBarEscola.TYPE)
             {
                 if (category.DELETE_DATE == null)
@@ -142,35 +144,91 @@ namespace Portal_Compras
 
         private void Portal_Load(object sender, EventArgs e)
         {
+            lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
         }
 
         private void cbb_categoryFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lvw_products.Items.Clear();
-            foreach (Product item in EntitiesBarEscola.Product)
+            FilterProductsByCategory();
+        }
+
+        private void FilterProductsByCategory()
+        {
+            if (chk_showFavorites.Checked == false)
             {
-                if (item.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
+                lvw_products.Items.Clear();
+                foreach (Product item in EntitiesBarEscola.Product)
                 {
-                    ListViewItem Product = new ListViewItem();
-                    Product.Text = item.Name;
-                    Product.Tag = Product.Text;
+                    if (item.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
+                    {
+                        ListViewItem Product = new ListViewItem();
+                        Product.Text = item.Name;
+                        Product.Tag = Product.Text;
 
-                    ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
-                    Price.Text = item.Price_Discount == null ? item.Price.ToString() + "€" : item.Price_Discount.ToString() + "€";
-                    Price.Tag = Price.Text;
+                        ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
+                        Price.Text = item.Price_Discount == null ? item.Price.ToString() + "€" : item.Price_Discount.ToString() + "€";
+                        Price.Tag = Price.Text;
 
-                    ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
-                    DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
+                        ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
+                        DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
 
-                    ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
-                    Type_Name.Text = item.TYPE.NAME;
-                    Type_Name.Tag = Type_Name.Text;
+                        ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
+                        Type_Name.Text = item.TYPE.NAME;
+                        Type_Name.Tag = Type_Name.Text;
 
-                    Product.SubItems.Add(Price);
-                    Product.SubItems.Add(DiscountPercentage);
-                    Product.SubItems.Add(Type_Name);
+                        Product.SubItems.Add(Price);
+                        Product.SubItems.Add(DiscountPercentage);
+                        Product.SubItems.Add(Type_Name);
 
-                    lvw_products.Items.Add(Product);
+                        lvw_products.Items.Add(Product);
+                    }
+                    else
+                    {
+                        if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
+                        {
+                            refreshListview();
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                lvw_products.Items.Clear();
+                foreach (Favorite_Product item in Generic.current_Logged_Client.Favorite_Product)
+                {
+                    if (item.Product.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
+                    {
+                        Product product = EntitiesBarEscola.Product.Where(p => p.ID == item.Id_Product).FirstOrDefault();
+                        ListViewItem ProductName = new ListViewItem();
+                        ProductName.Text = product.Name;
+                        ProductName.Tag = ProductName.Text;
+
+                        ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
+                        Price.Text = product.Price_Discount == null ? product.Price.ToString() + "€" : product.Price_Discount.ToString() + "€";
+                        Price.Tag = Price.Text;
+
+                        ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
+                        DiscountPercentage.Text = product.Price_Discount == null ? "" : product.Discount.Where(p => p.PRODUCT_ID == product.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
+
+                        ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
+                        Type_Name.Text = product.TYPE.NAME;
+                        Type_Name.Tag = Type_Name.Text;
+
+                        ProductName.SubItems.Add(Price);
+                        ProductName.SubItems.Add(DiscountPercentage);
+                        ProductName.SubItems.Add(Type_Name);
+
+                        lvw_products.Items.Add(ProductName);
+                    }
+                    else
+                    {
+                        if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
+                        {
+                            RefreshFavorites();
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -179,40 +237,62 @@ namespace Portal_Compras
         {
             if (e.Button == MouseButtons.Right)
             {
+                string selectedProductName = lvw_products.SelectedItems[0].Text;
+                int id_product = EntitiesBarEscola.Product.Where(d => d.Name == selectedProductName).FirstOrDefault().ID;
+                Favorite_Product favorite_Product = EntitiesBarEscola.Favorite_Product.Where(p => p.Id_Product == id_product && p.Id_Client == Generic.current_Logged_Client.ID).FirstOrDefault();
+
+                if (favorite_Product == null)
+                {
+                    cms_LvwProducts.Items[0].Text = "Adicionar como Favorito";
+                    cms_LvwProducts.Items[0].Image = Properties.Resources.heart;
+                }
+                else
+                {
+                    cms_LvwProducts.Items[0].Text = "Remover dos Favoritos";
+                    cms_LvwProducts.Items[0].Image = Properties.Resources.heart__1_;
+                }
+
                 cms_LvwProducts.Show(Cursor.Position);
+
             }
         }
 
         private void adicionarComoFavToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string selectedProductName = lvw_products.SelectedItems[0].Text;
-            //ACABAR TA MAL FEITO É PRECISO VERIFICAR SE O PRODUTO JA ESTA NOS FAVORITOS OU NAO E DEPOIS ADICIONAR OU REMOVER NAO CONFIRMAR PELO TEXTO DO MENU
-            if (adicionarComoFavToolStripMenuItem.Text == "Adicionar como Favorito")
+            int id_product = EntitiesBarEscola.Product.Where(d => d.Name == selectedProductName).FirstOrDefault().ID;
+            Favorite_Product favorite_Product = EntitiesBarEscola.Favorite_Product.Where(p => p.Id_Product == id_product && p.Id_Client == Generic.current_Logged_Client.ID).FirstOrDefault();
+
+            if (favorite_Product == null)
             {
                 cms_LvwProducts.Items[0].Text = "Remover dos Favoritos";
                 cms_LvwProducts.Items[0].Image = Properties.Resources.heart__1_;
-                Favorite_Product favorite_Product = new Favorite_Product();
-                int id_product = EntitiesBarEscola.Product.Where(d => d.Name == selectedProductName).FirstOrDefault().ID;
-                favorite_Product.Id_Product = id_product;
-                favorite_Product.Id_Client = Generic.current_Logged_Client.ID;
+                favorite_Product = new Favorite_Product
+                {
+                    Id_Product = id_product,
+                    Id_Client = Generic.current_Logged_Client.ID
+                };
                 EntitiesBarEscola.Favorite_Product.Add(favorite_Product);
-                EntitiesBarEscola.SaveChanges();
-
             }
             else
             {
                 cms_LvwProducts.Items[0].Text = "Adicionar como Favorito";
                 cms_LvwProducts.Items[0].Image = Properties.Resources.heart;
-                int id_product = EntitiesBarEscola.Product.Where(d => d.Name == selectedProductName).FirstOrDefault().ID;
-                Favorite_Product favorite_Product = EntitiesBarEscola.Favorite_Product.Where(p => p.Id_Product == id_product).FirstOrDefault();
                 EntitiesBarEscola.Favorite_Product.Remove(favorite_Product);
-                EntitiesBarEscola.SaveChanges();
             }
+
+            EntitiesBarEscola.SaveChanges();
         }
 
         private void chk_showFavorites_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_showFavorites.Checked == true)
+            RefreshFavorites();
+
+        }
+
+        private void RefreshFavorites()
+        {
+            if (chk_showFavorites.Checked == true)
             {
                 lvw_products.Items.Clear();
                 foreach (Favorite_Product item in Generic.current_Logged_Client.Favorite_Product)
@@ -242,9 +322,60 @@ namespace Portal_Compras
             }
             else
             {
-                refreshListview();
+                FilterProductsByCategory();
             }
-            
+        }
+
+        private void btn_addToCart_Click(object sender, EventArgs e)
+        {
+
+            if (EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault() == null)
+            {
+                CART cart = new CART
+                {
+                    User_ID = Generic.current_Logged_Client.ID,
+                    Created_Date = DateTime.Now
+                };
+                EntitiesBarEscola.CART.Add(cart);
+                EntitiesBarEscola.SaveChanges();
+            }
+            if (lvw_products.SelectedItems.Count > 0)
+            {
+                string selectedProductName = lvw_products.SelectedItems[0].Text;
+                int id_product = EntitiesBarEscola.Product.Where(d => d.Name == selectedProductName).FirstOrDefault().ID;
+                Product product = EntitiesBarEscola.Product.Where(p => p.ID == id_product).FirstOrDefault();
+                CART_ITEMS VerifycartItem = EntitiesBarEscola.CART_ITEMS.Where(i => i.Cart_ID == EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault().Cart_ID && i.Product_ID == id_product).FirstOrDefault();
+
+                if (VerifycartItem == null)
+                {
+                    CART_ITEMS cartItem = new CART_ITEMS
+                    {
+                        Product_ID = product.ID,
+                        Cart_ID = EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault().Cart_ID,
+                        Quantity = Convert.ToInt32(nud_Quantity.Value)
+                    };
+                    EntitiesBarEscola.CART_ITEMS.Add(cartItem);
+                    EntitiesBarEscola.SaveChanges();
+
+                }
+                else
+                {
+                    VerifycartItem.Quantity += Convert.ToInt32(nud_Quantity.Value);
+                    EntitiesBarEscola.SaveChanges();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um produto para adicionar ao carrinho", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btn_depositMoney_Click(object sender, EventArgs e)
+        {
+            Generic.current_Logged_Client.BALANCE += Convert.ToDecimal(nud_depositMoney.Value);
+            EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault().BALANCE = Generic.current_Logged_Client.BALANCE;
+            EntitiesBarEscola.SaveChanges();
+            lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
         }
     }
 }

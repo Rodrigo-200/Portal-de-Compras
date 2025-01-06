@@ -39,7 +39,7 @@
             this.btn_openCart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_addToCart = new System.Windows.Forms.Button();
-            this.nud_quanity = new System.Windows.Forms.NumericUpDown();
+            this.nud_Quantity = new System.Windows.Forms.NumericUpDown();
             this.lvw_products = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,7 +61,7 @@
             this.adicionarComoFavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tc_Options.SuspendLayout();
             this.tp_Buy.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_quanity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).BeginInit();
             this.tp_History.SuspendLayout();
             this.tp_Profile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_depositMoney)).BeginInit();
@@ -90,7 +90,7 @@
             this.tp_Buy.Controls.Add(this.btn_openCart);
             this.tp_Buy.Controls.Add(this.label1);
             this.tp_Buy.Controls.Add(this.btn_addToCart);
-            this.tp_Buy.Controls.Add(this.nud_quanity);
+            this.tp_Buy.Controls.Add(this.nud_Quantity);
             this.tp_Buy.Controls.Add(this.lvw_products);
             this.tp_Buy.Controls.Add(this.cbb_categoryFilter);
             this.tp_Buy.Location = new System.Drawing.Point(4, 22);
@@ -189,25 +189,26 @@
             this.btn_addToCart.TabIndex = 3;
             this.btn_addToCart.Text = "Adicionar ao Carrinho";
             this.btn_addToCart.UseVisualStyleBackColor = true;
+            this.btn_addToCart.Click += new System.EventHandler(this.btn_addToCart_Click);
             // 
-            // nud_quanity
+            // nud_Quantity
             // 
-            this.nud_quanity.Location = new System.Drawing.Point(286, 400);
-            this.nud_quanity.Margin = new System.Windows.Forms.Padding(2);
-            this.nud_quanity.Maximum = new decimal(new int[] {
+            this.nud_Quantity.Location = new System.Drawing.Point(286, 400);
+            this.nud_Quantity.Margin = new System.Windows.Forms.Padding(2);
+            this.nud_Quantity.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.nud_quanity.Minimum = new decimal(new int[] {
+            this.nud_Quantity.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.nud_quanity.Name = "nud_quanity";
-            this.nud_quanity.Size = new System.Drawing.Size(68, 20);
-            this.nud_quanity.TabIndex = 2;
-            this.nud_quanity.Value = new decimal(new int[] {
+            this.nud_Quantity.Name = "nud_Quantity";
+            this.nud_Quantity.Size = new System.Drawing.Size(68, 20);
+            this.nud_Quantity.TabIndex = 2;
+            this.nud_Quantity.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -357,6 +358,7 @@
             this.btn_depositMoney.TabIndex = 4;
             this.btn_depositMoney.Text = "Deposit";
             this.btn_depositMoney.UseVisualStyleBackColor = true;
+            this.btn_depositMoney.Click += new System.EventHandler(this.btn_depositMoney_Click);
             // 
             // lbl_totalBalance
             // 
@@ -423,7 +425,7 @@
             this.tc_Options.ResumeLayout(false);
             this.tp_Buy.ResumeLayout(false);
             this.tp_Buy.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_quanity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).EndInit();
             this.tp_History.ResumeLayout(false);
             this.tp_Profile.ResumeLayout(false);
             this.tp_Profile.PerformLayout();
@@ -438,7 +440,7 @@
         private System.Windows.Forms.TabControl tc_Options;
         private System.Windows.Forms.TabPage tp_Buy;
         private System.Windows.Forms.TabPage tp_History;
-        private System.Windows.Forms.NumericUpDown nud_quanity;
+        private System.Windows.Forms.NumericUpDown nud_Quantity;
         private System.Windows.Forms.ListView lvw_products;
         private System.Windows.Forms.ComboBox cbb_categoryFilter;
         private System.Windows.Forms.TabPage tp_Profile;

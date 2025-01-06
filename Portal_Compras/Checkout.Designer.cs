@@ -17,37 +17,44 @@
 
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lvw_CartItems = new System.Windows.Forms.ListView();
+            this.lbl_Total = new System.Windows.Forms.Label();
             this.btn_finalizeBuy = new System.Windows.Forms.Button();
             this.btn_exitCheckout = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btn_removeProducts = new System.Windows.Forms.Button();
             this.nud_quantityRemoveProducts = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.nud_quantityRemoveProducts)).BeginInit();
             this.SuspendLayout();
             // 
-            // listView1
+            // lvw_CartItems
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(9, 32);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(322, 278);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.lvw_CartItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvw_CartItems.HideSelection = false;
+            this.lvw_CartItems.Location = new System.Drawing.Point(9, 32);
+            this.lvw_CartItems.Margin = new System.Windows.Forms.Padding(2);
+            this.lvw_CartItems.Name = "lvw_CartItems";
+            this.lvw_CartItems.Size = new System.Drawing.Size(322, 278);
+            this.lvw_CartItems.TabIndex = 0;
+            this.lvw_CartItems.UseCompatibleStateImageBehavior = false;
+            this.lvw_CartItems.View = System.Windows.Forms.View.Details;
             // 
-            // label1
+            // lbl_Total
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(9, 13);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 19);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Total: 0€";
+            this.lbl_Total.AutoSize = true;
+            this.lbl_Total.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lbl_Total.Location = new System.Drawing.Point(9, 13);
+            this.lbl_Total.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Total.Name = "lbl_Total";
+            this.lbl_Total.Size = new System.Drawing.Size(66, 19);
+            this.lbl_Total.TabIndex = 1;
+            this.lbl_Total.Text = "Total: 0€";
             // 
             // btn_finalizeBuy
             // 
@@ -77,14 +84,6 @@
             this.btn_exitCheckout.TabIndex = 3;
             this.btn_exitCheckout.Text = "Sair";
             this.btn_exitCheckout.UseVisualStyleBackColor = false;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(9, 392);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(247, 27);
-            this.progressBar1.TabIndex = 8;
             // 
             // btn_removeProducts
             // 
@@ -133,6 +132,21 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Quantidade";
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Nome";
+            this.columnHeader1.Width = 146;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Quantidade";
+            this.columnHeader2.Width = 67;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Preço";
+            this.columnHeader3.Width = 100;
+            // 
             // Checkout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,18 +154,18 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(341, 427);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.nud_quantityRemoveProducts);
             this.Controls.Add(this.btn_removeProducts);
             this.Controls.Add(this.btn_exitCheckout);
             this.Controls.Add(this.btn_finalizeBuy);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lbl_Total);
+            this.Controls.Add(this.lvw_CartItems);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Checkout";
             this.Text = "Checkout";
+            this.Load += new System.EventHandler(this.Checkout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nud_quantityRemoveProducts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -160,13 +174,15 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView lvw_CartItems;
+        private System.Windows.Forms.Label lbl_Total;
         private System.Windows.Forms.Button btn_finalizeBuy;
         private System.Windows.Forms.Button btn_exitCheckout;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btn_removeProducts;
         private System.Windows.Forms.NumericUpDown nud_quantityRemoveProducts;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }

@@ -12,16 +12,15 @@ namespace Portal_Compras
     using System;
     using System.Collections.Generic;
     
-    public partial class BUY_PRODUCTS
+    public partial class CART_ITEMS
     {
-        public int ID_BUY { get; set; }
-        public int ID_PRODUCT { get; set; }
-        public Nullable<decimal> PRICE { get; set; }
-        public Nullable<double> DISCOUNT { get; set; }
-        public int QUANTITY { get; set; }
-        public string PRODUCT_NAME { get; set; }
+        public int Cart_Item_ID { get; set; }
+        public int Cart_ID { get; set; }
+        public int Product_ID { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
-        public virtual BUYS BUYS { get; set; }
+        public virtual CART CART { get; set; }
         public virtual Product Product { get; set; }
     }
 }

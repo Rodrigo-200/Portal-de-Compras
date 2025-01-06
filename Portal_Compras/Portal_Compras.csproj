@@ -61,6 +61,12 @@
     <Compile Include="BUY_PRODUCTS.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CART.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CART_ITEMS.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Checkout.cs">
       <SubType>Form</SubType>
     </Compile>
