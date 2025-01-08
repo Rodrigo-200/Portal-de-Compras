@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,11 +8,12 @@ namespace Portal_Compras
 {
     public partial class Portal : Form
     {
-        EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
+        private EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
 
         public Portal(int tabPage = 0)
         {
             InitializeComponent();
+            LoadUserProfile();
             tc_Options.SelectedIndex = tabPage;
             RefreshData();
             lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
@@ -22,7 +22,13 @@ namespace Portal_Compras
 
         private void Portal_Load(object sender, EventArgs e)
         {
+        }
 
+        private void LoadUserProfile()
+        {
+            lbl_name.Text = "Name: " + Generic.current_Logged_Client.NAME;
+            lbl_username.Text = "Username: " + Generic.current_Logged_Client.USERNAME;
+            //lbl_NIF.Text = Generic.current_Logged_Client.NIF;
         }
 
         private void RefreshData()
@@ -39,8 +45,6 @@ namespace Portal_Compras
 
             EntitiesBarEscola.ApplyDiscounts();
             refreshListview();
-
-
         }
 
         private void refreshListview()
@@ -107,12 +111,10 @@ namespace Portal_Compras
             {
                 searchText = "";
             }
-
             else
             {
                 searchText = txt_searchBar.Text;
             }
-
 
             // Call the stored procedure using BarEscolaEntities
             List<GetFilteredProducts_Result> filteredProducts = EntitiesBarEscola.GetFilteredProducts(searchText, false).ToList();
@@ -253,7 +255,6 @@ namespace Portal_Compras
                 }
 
                 cms_LvwProducts.Show(Cursor.Position);
-
             }
         }
 
@@ -287,7 +288,6 @@ namespace Portal_Compras
         private void chk_showFavorites_CheckedChanged(object sender, EventArgs e)
         {
             RefreshFavorites();
-
         }
 
         private void RefreshFavorites()
@@ -296,8 +296,7 @@ namespace Portal_Compras
             {
                 lvw_products.Items.Clear();
                 var ListidFavorites = Generic.current_Logged_Client.Favorite_Product.Select(p => p.Id_Product).ToList();
-                List<Product> teste=   EntitiesBarEscola.Product.Where(s => ListidFavorites.Contains(s.ID)).ToList();
-
+                List<Product> teste = EntitiesBarEscola.Product.Where(s => ListidFavorites.Contains(s.ID)).ToList();
 
                 foreach (Product item in teste)
                 {
@@ -332,7 +331,6 @@ namespace Portal_Compras
 
         private void btn_addToCart_Click(object sender, EventArgs e)
         {
-
             if (EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault() == null)
             {
                 CART cart = new CART
@@ -360,7 +358,6 @@ namespace Portal_Compras
                     };
                     EntitiesBarEscola.CART_ITEMS.Add(cartItem);
                     EntitiesBarEscola.SaveChanges();
-
                 }
                 else
                 {
