@@ -16,6 +16,13 @@ namespace Portal_Compras
             InitializeComponent();
             tc_Options.SelectedIndex = tabPage;
             RefreshData();
+            lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
+            cbb_categoryFilter.SelectedItem = "Todos";
+        }
+
+        private void Portal_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void RefreshData()
@@ -142,11 +149,6 @@ namespace Portal_Compras
             }
         }
 
-        private void Portal_Load(object sender, EventArgs e)
-        {
-            lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
-        }
-
         private void cbb_categoryFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterProductsByCategory();
@@ -159,6 +161,12 @@ namespace Portal_Compras
                 lvw_products.Items.Clear();
                 foreach (Product item in EntitiesBarEscola.Product)
                 {
+                    if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
+                    {
+                        refreshListview();
+                        break;
+                    }
+
                     if (item.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
                     {
                         ListViewItem Product = new ListViewItem();
@@ -181,14 +189,6 @@ namespace Portal_Compras
                         Product.SubItems.Add(Type_Name);
 
                         lvw_products.Items.Add(Product);
-                    }
-                    else
-                    {
-                        if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
-                        {
-                            refreshListview();
-                            break;
-                        }
                     }
                 }
             }
@@ -295,9 +295,13 @@ namespace Portal_Compras
             if (chk_showFavorites.Checked == true)
             {
                 lvw_products.Items.Clear();
-                foreach (Favorite_Product item in Generic.current_Logged_Client.Favorite_Product)
+                var ListidFavorites = Generic.current_Logged_Client.Favorite_Product.Select(p => p.Id_Product).ToList();
+                List<Product> teste=   EntitiesBarEscola.Product.Where(s => ListidFavorites.Contains(s.ID)).ToList();
+
+
+                foreach (Product item in teste)
                 {
-                    Product product = EntitiesBarEscola.Product.Where(p => p.ID == item.Id_Product).FirstOrDefault();
+                    Product product = item;
                     ListViewItem ProductName = new ListViewItem();
                     ProductName.Text = product.Name;
                     ProductName.Tag = ProductName.Text;
