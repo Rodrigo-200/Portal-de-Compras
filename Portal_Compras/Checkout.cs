@@ -109,6 +109,7 @@ namespace Portal_Compras
 
         private void refreshListView()
         {
+            EntitiesBarEscola = new EntitiesBarEscola();
             lvw_CartItems.Items.Clear();
             decimal total = 0;
             foreach (var item in EntitiesBarEscola.CART_ITEMS.Where(i => i.Cart_ID == EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault().Cart_ID))
@@ -134,6 +135,17 @@ namespace Portal_Compras
             }
 
             lbl_Total.Text = "Total: " + total.ToString();
+        }
+
+        private void btn_removeProducts_Click(object sender, EventArgs e)
+        {
+            if(lvw_CartItems.SelectedItems.Count > 0)
+            {
+                String ProductName = lvw_CartItems.SelectedItems[0].Text;
+                EntitiesBarEscola.CART_ITEMS.Remove(EntitiesBarEscola.CART_ITEMS.Where(i => i.Product.Name == ProductName).FirstOrDefault());
+                EntitiesBarEscola.SaveChanges();
+                refreshListView();
+            }
         }
     }
 }

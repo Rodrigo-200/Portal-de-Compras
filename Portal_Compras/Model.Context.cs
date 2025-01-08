@@ -64,7 +64,7 @@ namespace Portal_Compras
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Login_Validation_Result>("Login_Validation", usernameParameter, passwordParameter);
         }
     
-        public virtual ObjectResult<GetFilteredProducts_Result> GetFilteredProducts(string searchText, Nullable<bool> searchDesc)
+        public virtual ObjectResult<GetFilteredProducts_Result> GetFilteredProducts(string searchText, Nullable<bool> searchDesc, Nullable<bool> searchOnlyFavs, Nullable<int> client_ID)
         {
             var searchTextParameter = searchText != null ?
                 new ObjectParameter("SearchText", searchText) :
@@ -74,7 +74,15 @@ namespace Portal_Compras
                 new ObjectParameter("SearchDesc", searchDesc) :
                 new ObjectParameter("SearchDesc", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFilteredProducts_Result>("GetFilteredProducts", searchTextParameter, searchDescParameter);
+            var searchOnlyFavsParameter = searchOnlyFavs.HasValue ?
+                new ObjectParameter("SearchOnlyFavs", searchOnlyFavs) :
+                new ObjectParameter("SearchOnlyFavs", typeof(bool));
+    
+            var client_IDParameter = client_ID.HasValue ?
+                new ObjectParameter("Client_ID", client_ID) :
+                new ObjectParameter("Client_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFilteredProducts_Result>("GetFilteredProducts", searchTextParameter, searchDescParameter, searchOnlyFavsParameter, client_IDParameter);
         }
     }
 }

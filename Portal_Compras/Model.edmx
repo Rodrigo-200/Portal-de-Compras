@@ -222,6 +222,8 @@
         <Function Name="GetFilteredProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
           <Parameter Name="SearchDesc" Type="bit" Mode="In" />
+          <Parameter Name="SearchOnlyFavs" Type="bit" Mode="In" />
+          <Parameter Name="Client_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Login_Validation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Username" Type="nvarchar" Mode="In" />
@@ -291,10 +293,6 @@
             <Parameter Name="Username" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetFilteredProducts" ReturnType="Collection(Model.GetFilteredProducts_Result)">
-            <Parameter Name="SearchText" Mode="In" Type="String" />
-            <Parameter Name="SearchDesc" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <EntitySet Name="BUY_PRODUCTS" EntityType="Model.BUY_PRODUCTS" />
           <EntitySet Name="BUYS" EntityType="Model.BUYS" />
           <EntitySet Name="CART" EntityType="Model.CART" />
@@ -344,6 +342,12 @@
             <End Role="TYPE" EntitySet="TYPE" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
+          <FunctionImport Name="GetFilteredProducts" ReturnType="Collection(Model.GetFilteredProducts_Result)">
+            <Parameter Name="SearchText" Mode="In" Type="String" />
+            <Parameter Name="SearchDesc" Mode="In" Type="Boolean" />
+            <Parameter Name="SearchOnlyFavs" Mode="In" Type="Boolean" />
+            <Parameter Name="Client_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GET_PRODUCTS_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -354,19 +358,6 @@
         <ComplexType Name="Login_Validation_Result">
           <Property Type="Boolean" Name="UserExists" Nullable="true" />
           <Property Type="Boolean" Name="PasswordCorrect" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetFilteredProducts_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
-          <Property Type="Int32" Name="Type_Id" Nullable="false" />
-          <Property Type="Int32" Name="Stock" Nullable="true" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="Price_Discount" Nullable="true" Precision="19" />
-          <Property Type="DateTime" Name="FROM" Nullable="true" />
-          <Property Type="DateTime" Name="TO" Nullable="true" />
-          <Property Type="Double" Name="PERCENTAGE" Nullable="true" />
-          <Property Type="String" Name="TypeName" Nullable="true" MaxLength="50" />
         </ComplexType>
         <EntityType Name="BUY_PRODUCTS">
           <Key>
@@ -598,6 +589,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetFilteredProducts_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="Type_Id" Nullable="false" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price_Discount" Nullable="true" Precision="19" />
+          <Property Type="DateTime" Name="FROM" Nullable="true" />
+          <Property Type="DateTime" Name="TO" Nullable="true" />
+          <Property Type="Double" Name="PERCENTAGE" Nullable="true" />
+          <Property Type="String" Name="TypeName" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -620,23 +624,6 @@
               <ComplexTypeMapping TypeName="Model.Login_Validation_Result">
                 <ScalarProperty Name="UserExists" ColumnName="UserExists" />
                 <ScalarProperty Name="PasswordCorrect" ColumnName="PasswordCorrect" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetFilteredProducts" FunctionName="Model.Store.GetFilteredProducts">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Model.GetFilteredProducts_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Type_Id" ColumnName="Type_Id" />
-                <ScalarProperty Name="Stock" ColumnName="Stock" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Price_Discount" ColumnName="Price_Discount" />
-                <ScalarProperty Name="FROM" ColumnName="FROM" />
-                <ScalarProperty Name="TO" ColumnName="TO" />
-                <ScalarProperty Name="PERCENTAGE" ColumnName="PERCENTAGE" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -737,6 +724,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetFilteredProducts" FunctionName="Model.Store.GetFilteredProducts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetFilteredProducts_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Type_Id" ColumnName="Type_Id" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price_Discount" ColumnName="Price_Discount" />
+                <ScalarProperty Name="FROM" ColumnName="FROM" />
+                <ScalarProperty Name="TO" ColumnName="TO" />
+                <ScalarProperty Name="PERCENTAGE" ColumnName="PERCENTAGE" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

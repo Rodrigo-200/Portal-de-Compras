@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Portal_Compras
 {
@@ -60,7 +61,7 @@ namespace Portal_Compras
                     Price.Tag = Price.Text;
 
                     ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
-                    DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
+                    DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID && DateTime.Now >= p.FROM  && DateTime.Now <= p.TO).FirstOrDefault().PERCENTAGE.ToString() + "%";
 
                     ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
                     Type_Name.Text = item.TYPE.NAME;
@@ -115,7 +116,16 @@ namespace Portal_Compras
 
 
             // Call the stored procedure using BarEscolaEntities
-            List<GetFilteredProducts_Result> filteredProducts = EntitiesBarEscola.GetFilteredProducts(searchText, false).ToList();
+            bool searchFavortites = false;
+            if (chk_showFavorites.Checked)
+            {
+                searchFavortites = true;
+            }
+            else
+            {
+                searchFavortites = false;
+            }
+            List<GetFilteredProducts_Result> filteredProducts = EntitiesBarEscola.GetFilteredProducts(searchText, false, searchFavortites, searchFavortites ? Generic.current_Logged_Client.ID : 0).ToList();
 
             // Limpar e atualizar a listview
             refreshFilteredListview(filteredProducts);
@@ -156,79 +166,60 @@ namespace Portal_Compras
 
         private void FilterProductsByCategory()
         {
-            if (chk_showFavorites.Checked == false)
+            EntitiesBarEscola = new EntitiesBarEscola();
+
+            List<Product> Products = new List<Product>();
+            if (chk_showFavorites.Checked)
             {
-                lvw_products.Items.Clear();
-                foreach (Product item in EntitiesBarEscola.Product)
+                Generic.current_Logged_Client = EntitiesBarEscola.CLIENT.Where(p => p.ID == Generic.current_Logged_Client.ID).FirstOrDefault();
+                var ListidFavorites = Generic.current_Logged_Client.Favorite_Product.Select(p => p.Id_Product).ToList();
+                Products = EntitiesBarEscola.Product.Where(s => ListidFavorites.Contains(s.ID)).ToList();
+            }
+            else
+            {
+                Products = EntitiesBarEscola.Product.ToList();
+            }
+
+            lvw_products.Items.Clear();
+            foreach (Product item in Products)
+            {
+                if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
                 {
-                    if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
+                    if (chk_showFavorites.Checked)
+                    {
+                        RefreshFavorites();
+                        break;
+                    }
+                    else
                     {
                         refreshListview();
                         break;
                     }
 
-                    if (item.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
-                    {
-                        ListViewItem Product = new ListViewItem();
-                        Product.Text = item.Name;
-                        Product.Tag = Product.Text;
-
-                        ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
-                        Price.Text = item.Price_Discount == null ? item.Price.ToString() + "€" : item.Price_Discount.ToString() + "€";
-                        Price.Tag = Price.Text;
-
-                        ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
-                        DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
-
-                        ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
-                        Type_Name.Text = item.TYPE.NAME;
-                        Type_Name.Tag = Type_Name.Text;
-
-                        Product.SubItems.Add(Price);
-                        Product.SubItems.Add(DiscountPercentage);
-                        Product.SubItems.Add(Type_Name);
-
-                        lvw_products.Items.Add(Product);
-                    }
                 }
-            }
-            else
-            {
-                lvw_products.Items.Clear();
-                foreach (Favorite_Product item in Generic.current_Logged_Client.Favorite_Product)
+
+                if (item.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
                 {
-                    if (item.Product.TYPE.NAME == cbb_categoryFilter.SelectedItem.ToString())
-                    {
-                        Product product = EntitiesBarEscola.Product.Where(p => p.ID == item.Id_Product).FirstOrDefault();
-                        ListViewItem ProductName = new ListViewItem();
-                        ProductName.Text = product.Name;
-                        ProductName.Tag = ProductName.Text;
+                    ListViewItem Product = new ListViewItem();
+                    Product.Text = item.Name;
+                    Product.Tag = Product.Text;
 
-                        ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
-                        Price.Text = product.Price_Discount == null ? product.Price.ToString() + "€" : product.Price_Discount.ToString() + "€";
-                        Price.Tag = Price.Text;
+                    ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
+                    Price.Text = item.Price_Discount == null ? item.Price.ToString() + "€" : item.Price_Discount.ToString() + "€";
+                    Price.Tag = Price.Text;
 
-                        ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
-                        DiscountPercentage.Text = product.Price_Discount == null ? "" : product.Discount.Where(p => p.PRODUCT_ID == product.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
+                    ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
+                    DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID && DateTime.Now >= p.FROM && DateTime.Now <= p.TO).FirstOrDefault().PERCENTAGE.ToString() + "%";
 
-                        ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
-                        Type_Name.Text = product.TYPE.NAME;
-                        Type_Name.Tag = Type_Name.Text;
+                    ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
+                    Type_Name.Text = item.TYPE.NAME;
+                    Type_Name.Tag = Type_Name.Text;
 
-                        ProductName.SubItems.Add(Price);
-                        ProductName.SubItems.Add(DiscountPercentage);
-                        ProductName.SubItems.Add(Type_Name);
+                    Product.SubItems.Add(Price);
+                    Product.SubItems.Add(DiscountPercentage);
+                    Product.SubItems.Add(Type_Name);
 
-                        lvw_products.Items.Add(ProductName);
-                    }
-                    else
-                    {
-                        if (cbb_categoryFilter.SelectedItem.ToString() == "Todos")
-                        {
-                            RefreshFavorites();
-                            break;
-                        }
-                    }
+                    lvw_products.Items.Add(Product);
                 }
             }
         }
@@ -286,35 +277,48 @@ namespace Portal_Compras
 
         private void chk_showFavorites_CheckedChanged(object sender, EventArgs e)
         {
-            RefreshFavorites();
+            if (cbb_categoryFilter.SelectedItem != "Todos")
+            {
+                FilterProductsByCategory();
+            }
+            else
+            {
 
+                RefreshFavorites();
+            }
+            if (txt_searchBar.Text != "Pesquise um produto")
+            {
+                refreshFilteredListview(EntitiesBarEscola.GetFilteredProducts(txt_searchBar.Text, false, chk_showFavorites.Checked, chk_showFavorites.Checked ? Generic.current_Logged_Client.ID : 0).ToList());
+            }
         }
 
         private void RefreshFavorites()
         {
+            EntitiesBarEscola = new EntitiesBarEscola();
             if (chk_showFavorites.Checked == true)
             {
                 lvw_products.Items.Clear();
+
+                Generic.current_Logged_Client = EntitiesBarEscola.CLIENT.Where(p => p.ID == Generic.current_Logged_Client.ID).FirstOrDefault();
                 var ListidFavorites = Generic.current_Logged_Client.Favorite_Product.Select(p => p.Id_Product).ToList();
-                List<Product> teste=   EntitiesBarEscola.Product.Where(s => ListidFavorites.Contains(s.ID)).ToList();
+                List<Product> Favorite_Products = EntitiesBarEscola.Product.Where(s => ListidFavorites.Contains(s.ID)).ToList();
 
 
-                foreach (Product item in teste)
+                foreach (Product item in Favorite_Products)
                 {
-                    Product product = item;
                     ListViewItem ProductName = new ListViewItem();
-                    ProductName.Text = product.Name;
+                    ProductName.Text = item.Name;
                     ProductName.Tag = ProductName.Text;
 
                     ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
-                    Price.Text = product.Price_Discount == null ? product.Price.ToString() + "€" : product.Price_Discount.ToString() + "€";
+                    Price.Text = item.Price_Discount == null ? item.Price.ToString() + "€" : item.Price_Discount.ToString() + "€";
                     Price.Tag = Price.Text;
 
                     ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
-                    DiscountPercentage.Text = product.Price_Discount == null ? "" : product.Discount.Where(p => p.PRODUCT_ID == product.ID).FirstOrDefault().PERCENTAGE.ToString() + "%";
+                    DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID && DateTime.Now >= p.FROM && DateTime.Now <= p.TO).FirstOrDefault().PERCENTAGE.ToString() + "%";
 
                     ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
-                    Type_Name.Text = product.TYPE.NAME;
+                    Type_Name.Text = item.TYPE.NAME;
                     Type_Name.Tag = Type_Name.Text;
 
                     ProductName.SubItems.Add(Price);
