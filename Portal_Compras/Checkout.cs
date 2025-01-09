@@ -12,7 +12,7 @@ namespace Portal_Compras
 {
     public partial class Checkout : Form
     {
-         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
+        EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
         public Checkout()
         {
             InitializeComponent();
@@ -22,20 +22,21 @@ namespace Portal_Compras
         {
             EntitiesBarEscola = new EntitiesBarEscola();
 
-            //Perguntar ao professor
             if (Generic.current_Logged_Client.BALANCE < Convert.ToDecimal(lbl_Total.Text.Split(':')[1]))
             {
-                //Perguntar ao professor
                 DialogResult result = MessageBox.Show("Saldo insuficiente! \n Deseja atualizar o saldo do seu cartão?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (result == DialogResult.Yes)
                 {
                     this.Visible = false;
+                    this.Close();
                     Portal portal = new Portal(2);
                     portal.ShowDialog();
                     return;
                 }
                 else
+                {
                     return;
+                }
             }
             else
             {
@@ -104,7 +105,6 @@ namespace Portal_Compras
         private void Checkout_Load(object sender, EventArgs e)
         {
             refreshListView();
-
         }
 
         private void refreshListView()
@@ -139,10 +139,28 @@ namespace Portal_Compras
 
         private void btn_removeProducts_Click(object sender, EventArgs e)
         {
-            if(lvw_CartItems.SelectedItems.Count > 0)
+            if (lvw_CartItems.SelectedItems.Count > 0)
             {
-                String ProductName = lvw_CartItems.SelectedItems[0].Text;
-                EntitiesBarEscola.CART_ITEMS.Remove(EntitiesBarEscola.CART_ITEMS.Where(i => i.Product.Name == ProductName).FirstOrDefault());
+                int QuantityToRemove = Convert.ToInt32(nud_QuatityToRemove.Value);
+                EntitiesBarEscola = new EntitiesBarEscola();
+                foreach (ListViewItem item in lvw_CartItems.SelectedItems)
+                {
+                    var product = EntitiesBarEscola.CART_ITEMS.Where(i => i.Product.Name == item.Text).FirstOrDefault();
+                    if (product.Quantity >= QuantityToRemove)
+                    {
+                        product.Quantity -= QuantityToRemove;
+                    }
+
+                    if (product.Quantity <= 0)
+                    {
+                        EntitiesBarEscola.CART_ITEMS.Remove(product);
+                    }
+                    else
+                    {
+                        EntitiesBarEscola.CART_ITEMS.Where(CART_ITEMS => CART_ITEMS.Product.Name == item.Text).FirstOrDefault().Quantity = product.Quantity;
+                    }
+                }
+
                 EntitiesBarEscola.SaveChanges();
                 refreshListView();
             }

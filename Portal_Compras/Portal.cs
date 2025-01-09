@@ -79,9 +79,10 @@ namespace Portal_Compras
         private void btn_Cart_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+            this.Close();
             Checkout checkout = new Checkout();
             checkout.ShowDialog();
-            this.Visible = true;
+
         }
 
         private void txt_searchBar_Enter(object sender, EventArgs e)
@@ -384,6 +385,10 @@ namespace Portal_Compras
             EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault().BALANCE = Generic.current_Logged_Client.BALANCE;
             EntitiesBarEscola.SaveChanges();
             lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
+        }
+
+        private void Portal_FormClosed(object sender, FormClosedEventArgs e)
+        {
         }
     }
 }

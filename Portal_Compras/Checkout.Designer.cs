@@ -25,9 +25,9 @@
             this.btn_finalizeBuy = new System.Windows.Forms.Button();
             this.btn_exitCheckout = new System.Windows.Forms.Button();
             this.btn_removeProducts = new System.Windows.Forms.Button();
-            this.nud_quantityRemoveProducts = new System.Windows.Forms.NumericUpDown();
+            this.nud_QuatityToRemove = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_quantityRemoveProducts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_QuatityToRemove)).BeginInit();
             this.SuspendLayout();
             // 
             // lvw_CartItems
@@ -36,6 +36,7 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.lvw_CartItems.FullRowSelect = true;
             this.lvw_CartItems.HideSelection = false;
             this.lvw_CartItems.Location = new System.Drawing.Point(12, 11);
             this.lvw_CartItems.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -114,24 +115,24 @@
             this.btn_removeProducts.UseVisualStyleBackColor = false;
             this.btn_removeProducts.Click += new System.EventHandler(this.btn_removeProducts_Click);
             // 
-            // nud_quantityRemoveProducts
+            // nud_QuatityToRemove
             // 
-            this.nud_quantityRemoveProducts.Location = new System.Drawing.Point(19, 439);
-            this.nud_quantityRemoveProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_quantityRemoveProducts.Maximum = new decimal(new int[] {
+            this.nud_QuatityToRemove.Location = new System.Drawing.Point(19, 439);
+            this.nud_QuatityToRemove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nud_QuatityToRemove.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.nud_quantityRemoveProducts.Minimum = new decimal(new int[] {
+            this.nud_QuatityToRemove.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.nud_quantityRemoveProducts.Name = "nud_quantityRemoveProducts";
-            this.nud_quantityRemoveProducts.Size = new System.Drawing.Size(145, 22);
-            this.nud_quantityRemoveProducts.TabIndex = 6;
-            this.nud_quantityRemoveProducts.Value = new decimal(new int[] {
+            this.nud_QuatityToRemove.Name = "nud_QuatityToRemove";
+            this.nud_QuatityToRemove.Size = new System.Drawing.Size(145, 22);
+            this.nud_QuatityToRemove.TabIndex = 6;
+            this.nud_QuatityToRemove.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -153,7 +154,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(455, 526);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.nud_quantityRemoveProducts);
+            this.Controls.Add(this.nud_QuatityToRemove);
             this.Controls.Add(this.btn_removeProducts);
             this.Controls.Add(this.btn_exitCheckout);
             this.Controls.Add(this.btn_finalizeBuy);
@@ -165,7 +166,7 @@
             this.Name = "Checkout";
             this.Text = "Checkout";
             this.Load += new System.EventHandler(this.Checkout_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nud_quantityRemoveProducts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_QuatityToRemove)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,7 +179,7 @@
         private System.Windows.Forms.Button btn_finalizeBuy;
         private System.Windows.Forms.Button btn_exitCheckout;
         private System.Windows.Forms.Button btn_removeProducts;
-        private System.Windows.Forms.NumericUpDown nud_quantityRemoveProducts;
+        private System.Windows.Forms.NumericUpDown nud_QuatityToRemove;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
