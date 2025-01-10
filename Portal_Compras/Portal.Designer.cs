@@ -31,12 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tc_Options = new System.Windows.Forms.TabControl();
             this.tp_Buy = new System.Windows.Forms.TabPage();
-            this.chk_showFavorites = new System.Windows.Forms.CheckBox();
-            this.btn_addToFavorites = new System.Windows.Forms.Button();
-            this.btn_refreshProducts = new System.Windows.Forms.Button();
             this.lbl_Search_Message = new System.Windows.Forms.Label();
             this.txt_searchBar = new System.Windows.Forms.TextBox();
-            this.btn_openCart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_addToCart = new System.Windows.Forms.Button();
             this.nud_Quantity = new System.Windows.Forms.NumericUpDown();
@@ -56,8 +52,12 @@
             this.btn_depositMoney = new System.Windows.Forms.Button();
             this.lbl_totalBalance = new System.Windows.Forms.Label();
             this.lbl_username = new System.Windows.Forms.Label();
-            this.btn_logout = new System.Windows.Forms.Button();
             this.cms_LvwProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chk_showFavorites = new System.Windows.Forms.CheckBox();
+            this.btn_refreshProducts = new System.Windows.Forms.Button();
+            this.btn_openCart = new System.Windows.Forms.Button();
+            this.btn_logout = new System.Windows.Forms.Button();
             this.adicionarComoFavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tc_Options.SuspendLayout();
             this.tp_Buy.SuspendLayout();
@@ -83,7 +83,6 @@
             // tp_Buy
             // 
             this.tp_Buy.Controls.Add(this.chk_showFavorites);
-            this.tp_Buy.Controls.Add(this.btn_addToFavorites);
             this.tp_Buy.Controls.Add(this.btn_refreshProducts);
             this.tp_Buy.Controls.Add(this.lbl_Search_Message);
             this.tp_Buy.Controls.Add(this.txt_searchBar);
@@ -102,38 +101,6 @@
             this.tp_Buy.Text = "Compras";
             this.tp_Buy.UseVisualStyleBackColor = true;
             // 
-            // chk_showFavorites
-            // 
-            this.chk_showFavorites.AutoSize = true;
-            this.chk_showFavorites.Location = new System.Drawing.Point(167, 22);
-            this.chk_showFavorites.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.chk_showFavorites.Name = "chk_showFavorites";
-            this.chk_showFavorites.Size = new System.Drawing.Size(146, 20);
-            this.chk_showFavorites.TabIndex = 11;
-            this.chk_showFavorites.Text = "Mostrar só favoritos";
-            this.chk_showFavorites.UseVisualStyleBackColor = true;
-            this.chk_showFavorites.CheckedChanged += new System.EventHandler(this.chk_showFavorites_CheckedChanged);
-            // 
-            // btn_addToFavorites
-            // 
-            this.btn_addToFavorites.Location = new System.Drawing.Point(100, 522);
-            this.btn_addToFavorites.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_addToFavorites.Name = "btn_addToFavorites";
-            this.btn_addToFavorites.Size = new System.Drawing.Size(91, 30);
-            this.btn_addToFavorites.TabIndex = 10;
-            this.btn_addToFavorites.Text = "Favorito";
-            this.btn_addToFavorites.UseVisualStyleBackColor = true;
-            // 
-            // btn_refreshProducts
-            // 
-            this.btn_refreshProducts.Location = new System.Drawing.Point(3, 522);
-            this.btn_refreshProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_refreshProducts.Name = "btn_refreshProducts";
-            this.btn_refreshProducts.Size = new System.Drawing.Size(92, 30);
-            this.btn_refreshProducts.TabIndex = 9;
-            this.btn_refreshProducts.Text = "Refresh";
-            this.btn_refreshProducts.UseVisualStyleBackColor = true;
-            // 
             // lbl_Search_Message
             // 
             this.lbl_Search_Message.AutoSize = true;
@@ -147,27 +114,13 @@
             this.txt_searchBar.Location = new System.Drawing.Point(5, 54);
             this.txt_searchBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_searchBar.Name = "txt_searchBar";
-            this.txt_searchBar.Size = new System.Drawing.Size(469, 22);
+            this.txt_searchBar.Size = new System.Drawing.Size(425, 22);
             this.txt_searchBar.TabIndex = 5;
             this.txt_searchBar.Tag = "";
-            this.txt_searchBar.Text = "Pesquise um produto";
+            this.txt_searchBar.Text = "Procure pelo nome do produto";
             this.txt_searchBar.TextChanged += new System.EventHandler(this.txt_searchBar_TextChanged);
             this.txt_searchBar.Enter += new System.EventHandler(this.txt_searchBar_Enter);
             this.txt_searchBar.Leave += new System.EventHandler(this.txt_searchBar_Leave);
-            // 
-            // btn_openCart
-            // 
-            this.btn_openCart.BackgroundImage = global::Portal_Compras.Properties.Resources.shopping_cart;
-            this.btn_openCart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_openCart.FlatAppearance.BorderSize = 0;
-            this.btn_openCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_openCart.Location = new System.Drawing.Point(441, 4);
-            this.btn_openCart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_openCart.Name = "btn_openCart";
-            this.btn_openCart.Size = new System.Drawing.Size(32, 28);
-            this.btn_openCart.TabIndex = 1;
-            this.btn_openCart.UseVisualStyleBackColor = true;
-            this.btn_openCart.Click += new System.EventHandler(this.btn_Cart_Click);
             // 
             // label1
             // 
@@ -206,6 +159,7 @@
             this.nud_Quantity.Name = "nud_Quantity";
             this.nud_Quantity.Size = new System.Drawing.Size(91, 22);
             this.nud_Quantity.TabIndex = 2;
+            this.nud_Quantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nud_Quantity.Value = new decimal(new int[] {
             1,
             0,
@@ -374,6 +328,63 @@
             this.lbl_username.TabIndex = 0;
             this.lbl_username.Text = "Username";
             // 
+            // cms_LvwProducts
+            // 
+            this.cms_LvwProducts.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cms_LvwProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adicionarComoFavToolStripMenuItem});
+            this.cms_LvwProducts.Name = "cms_LvwProducts";
+            this.cms_LvwProducts.Size = new System.Drawing.Size(246, 30);
+            // 
+            // chk_showFavorites
+            // 
+            this.chk_showFavorites.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chk_showFavorites.BackgroundImage = global::Portal_Compras.Properties.Resources.heart;
+            this.chk_showFavorites.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.chk_showFavorites.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.chk_showFavorites.FlatAppearance.BorderSize = 0;
+            this.chk_showFavorites.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.chk_showFavorites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_showFavorites.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_showFavorites.Location = new System.Drawing.Point(436, 50);
+            this.chk_showFavorites.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chk_showFavorites.Name = "chk_showFavorites";
+            this.chk_showFavorites.Size = new System.Drawing.Size(37, 26);
+            this.chk_showFavorites.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.chk_showFavorites, "Mostrar/Esconder os produto favoritos");
+            this.chk_showFavorites.UseVisualStyleBackColor = true;
+            this.chk_showFavorites.CheckedChanged += new System.EventHandler(this.chk_showFavorites_CheckedChanged);
+            // 
+            // btn_refreshProducts
+            // 
+            this.btn_refreshProducts.BackgroundImage = global::Portal_Compras.Properties.Resources.refresh;
+            this.btn_refreshProducts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_refreshProducts.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btn_refreshProducts.FlatAppearance.BorderSize = 0;
+            this.btn_refreshProducts.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btn_refreshProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_refreshProducts.Location = new System.Drawing.Point(7, 496);
+            this.btn_refreshProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_refreshProducts.Name = "btn_refreshProducts";
+            this.btn_refreshProducts.Size = new System.Drawing.Size(40, 28);
+            this.btn_refreshProducts.TabIndex = 9;
+            this.btn_refreshProducts.UseVisualStyleBackColor = true;
+            // 
+            // btn_openCart
+            // 
+            this.btn_openCart.BackgroundImage = global::Portal_Compras.Properties.Resources.shopping_cart;
+            this.btn_openCart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_openCart.FlatAppearance.BorderSize = 0;
+            this.btn_openCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_openCart.Location = new System.Drawing.Point(436, 4);
+            this.btn_openCart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_openCart.Name = "btn_openCart";
+            this.btn_openCart.Size = new System.Drawing.Size(32, 28);
+            this.btn_openCart.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.btn_openCart, "Carrinho");
+            this.btn_openCart.UseVisualStyleBackColor = true;
+            this.btn_openCart.Click += new System.EventHandler(this.btn_Cart_Click);
+            // 
             // btn_logout
             // 
             this.btn_logout.BackColor = System.Drawing.Color.Transparent;
@@ -382,20 +393,12 @@
             this.btn_logout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
             this.btn_logout.FlatAppearance.BorderSize = 0;
             this.btn_logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_logout.Location = new System.Drawing.Point(440, 5);
+            this.btn_logout.Location = new System.Drawing.Point(446, 529);
             this.btn_logout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_logout.Name = "btn_logout";
             this.btn_logout.Size = new System.Drawing.Size(32, 27);
             this.btn_logout.TabIndex = 2;
             this.btn_logout.UseVisualStyleBackColor = false;
-            // 
-            // cms_LvwProducts
-            // 
-            this.cms_LvwProducts.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cms_LvwProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adicionarComoFavToolStripMenuItem});
-            this.cms_LvwProducts.Name = "cms_LvwProducts";
-            this.cms_LvwProducts.Size = new System.Drawing.Size(246, 30);
             // 
             // adicionarComoFavToolStripMenuItem
             // 
@@ -448,7 +451,6 @@
         private System.Windows.Forms.ListView lstvw_history;
         private System.Windows.Forms.Button btn_cancelBuy;
         private System.Windows.Forms.Button btn_refreshProducts;
-        private System.Windows.Forms.Button btn_addToFavorites;
         private System.Windows.Forms.Label lbl_username;
         private System.Windows.Forms.NumericUpDown nud_depositMoney;
         private System.Windows.Forms.Button btn_depositMoney;
@@ -463,5 +465,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ContextMenuStrip cms_LvwProducts;
         private System.Windows.Forms.ToolStripMenuItem adicionarComoFavToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

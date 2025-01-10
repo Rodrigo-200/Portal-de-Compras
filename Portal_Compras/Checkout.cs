@@ -165,5 +165,13 @@ namespace Portal_Compras
                 refreshListView();
             }
         }
+
+        private void btn_exitCheckout_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            this.Close();
+            Portal portal = new Portal();
+            portal.ShowDialog();
+        }
     }
 }

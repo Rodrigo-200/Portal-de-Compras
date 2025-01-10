@@ -99,6 +99,7 @@
             this.btn_exitCheckout.TabIndex = 3;
             this.btn_exitCheckout.Text = "Sair";
             this.btn_exitCheckout.UseVisualStyleBackColor = false;
+            this.btn_exitCheckout.Click += new System.EventHandler(this.btn_exitCheckout_Click);
             // 
             // btn_removeProducts
             // 

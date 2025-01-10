@@ -87,7 +87,7 @@ namespace Portal_Compras
 
         private void txt_searchBar_Enter(object sender, EventArgs e)
         {
-            if (txt_searchBar.Text == "Pesquise um produto")
+            if (txt_searchBar.Text == "Procure pelo nome do produto")
             {
                 txt_searchBar.Text = "";
             }
@@ -97,7 +97,7 @@ namespace Portal_Compras
         {
             if (string.IsNullOrEmpty(txt_searchBar.Text))
             {
-                txt_searchBar.Text = "Pesquise um produto";
+                txt_searchBar.Text = "Procure pelo nome do produto";
             }
         }
 
@@ -251,6 +251,11 @@ namespace Portal_Compras
 
         private void adicionarComoFavToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AddFavoriteProduct();
+        }
+
+        private void AddFavoriteProduct()
+        {
             string selectedProductName = lvw_products.SelectedItems[0].Text;
             int id_product = EntitiesBarEscola.Product.Where(d => d.Name == selectedProductName).FirstOrDefault().ID;
             Favorite_Product favorite_Product = EntitiesBarEscola.Favorite_Product.Where(p => p.Id_Product == id_product && p.Id_Client == Generic.current_Logged_Client.ID).FirstOrDefault();
@@ -278,6 +283,15 @@ namespace Portal_Compras
 
         private void chk_showFavorites_CheckedChanged(object sender, EventArgs e)
         {
+            if(chk_showFavorites.Checked)
+            {
+                chk_showFavorites.BackgroundImage = Properties.Resources.heart__1_;
+            }
+            else
+            {
+                chk_showFavorites.BackgroundImage = Properties.Resources.heart;
+            }
+
             if (cbb_categoryFilter.SelectedItem != "Todos")
             {
                 FilterProductsByCategory();
@@ -287,7 +301,7 @@ namespace Portal_Compras
 
                 RefreshFavorites();
             }
-            if (txt_searchBar.Text != "Pesquise um produto")
+            if (txt_searchBar.Text != "Procure pelo nome do produto")
             {
                 refreshFilteredListview(EntitiesBarEscola.GetFilteredProducts(txt_searchBar.Text, false, chk_showFavorites.Checked, chk_showFavorites.Checked ? Generic.current_Logged_Client.ID : 0).ToList());
             }
