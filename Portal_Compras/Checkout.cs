@@ -124,7 +124,7 @@ namespace Portal_Compras
                 Quantity.Text = item.Quantity.ToString();
 
                 ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
-                Price.Text = (item.Quantity * price).ToString();
+                Price.Text = Math.Round(Convert.ToDecimal(item.Quantity * price), 2).ToString();
 
                 Product.SubItems.Add(Quantity);
                 Product.SubItems.Add(Price);
@@ -134,7 +134,7 @@ namespace Portal_Compras
                 total += Convert.ToDecimal(item.Quantity * price);
             }
 
-            lbl_Total.Text = "Total: " + total.ToString();
+            lbl_Total.Text = "Total: " + Math.Round(total, 2).ToString();
         }
 
         private void btn_removeProducts_Click(object sender, EventArgs e)

@@ -17,7 +17,8 @@ namespace Portal_Compras
             InitializeComponent();
             tc_Options.SelectedIndex = tabPage;
             RefreshData();
-            lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
+            decimal Balance = Convert.ToDecimal(Generic.current_Logged_Client.BALANCE);
+            lbl_totalBalance.Text = "Saldo Total: " + Math.Round(Balance, 2) + "€";
             cbb_categoryFilter.SelectedItem = "Todos";
         }
 

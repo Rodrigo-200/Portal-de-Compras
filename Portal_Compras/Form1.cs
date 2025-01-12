@@ -64,12 +64,12 @@ namespace Portal_Compras
             if (chb_showPassword.Checked)
             {
                 chb_showPassword.ImageIndex = 0;
-                txt_password.PasswordChar = '\0';
+                txt_password.UseSystemPasswordChar = false;
             }
             else
             {
                 chb_showPassword.ImageIndex = 1;
-                txt_password.PasswordChar = '*';
+                txt_password.UseSystemPasswordChar = true;
             }
         }
 
