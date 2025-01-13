@@ -1,4 +1,6 @@
-﻿namespace Portal_Compras
+﻿using System.Windows.Forms;
+
+namespace Portal_Compras
 {
     partial class Portal
     {
@@ -38,10 +40,6 @@
             this.btn_addToCart = new System.Windows.Forms.Button();
             this.lbl_Search_Message = new System.Windows.Forms.Label();
             this.tp_History = new System.Windows.Forms.TabPage();
-            this.ts_Options = new System.Windows.Forms.ToolStrip();
-            this.tsddb_Ver = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tsb_Open = new System.Windows.Forms.ToolStripButton();
-            this.tsb_Cancel_Buy = new System.Windows.Forms.ToolStripButton();
             this.lvw_history = new System.Windows.Forms.ListView();
             this.ch_Number = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -54,6 +52,10 @@
             this.lbl_totalBalance = new System.Windows.Forms.Label();
             this.nud_depositMoney = new System.Windows.Forms.NumericUpDown();
             this.btn_depositMoney = new System.Windows.Forms.Button();
+            this.ts_Options = new System.Windows.Forms.ToolStrip();
+            this.tsddb_Ver = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsb_Open = new System.Windows.Forms.ToolStripButton();
+            this.tsb_Cancel_Buy = new System.Windows.Forms.ToolStripButton();
             this.cms_LvwProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.adicionarComoFavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltsmi_List = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +66,6 @@
             this.tp_Buy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).BeginInit();
             this.tp_History.SuspendLayout();
-            this.ts_Options.SuspendLayout();
             this.tp_Profile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_depositMoney)).BeginInit();
             this.cms_LvwProducts.SuspendLayout();
@@ -119,7 +120,6 @@
             this.tc_Options.TabIndex = 0;
             this.tc_Options.SelectedIndexChanged += new System.EventHandler(this.tc_Options_SelectedIndexChanged);
             this.tc_Options.TabIndexChanged += new System.EventHandler(this.tc_Options_TabIndexChanged);
-
             // 
             // tp_Buy
             // 
@@ -290,22 +290,13 @@
             // tp_History
             // 
             this.tp_History.BackColor = System.Drawing.Color.White;
-            this.tp_History.Controls.Add(this.lstvw_history);
+            this.tp_History.Controls.Add(this.lvw_history);
             this.tp_History.Controls.Add(this.btn_cancelBuy);
             this.tp_History.Location = new System.Drawing.Point(4, 26);
             this.tp_History.Name = "tp_History";
             this.tp_History.Size = new System.Drawing.Size(672, 450);
             this.tp_History.TabIndex = 1;
             this.tp_History.Text = "Histórico";
-            // 
-            // tsb_Cancel_Buy
-            // 
-            this.lstvw_history.HideSelection = false;
-            this.lstvw_history.Location = new System.Drawing.Point(10, 10);
-            this.lstvw_history.Name = "lstvw_history";
-            this.lstvw_history.Size = new System.Drawing.Size(640, 390);
-            this.lstvw_history.TabIndex = 0;
-            this.lstvw_history.UseCompatibleStateImageBehavior = false;
             // 
             // lvw_history
             // 
@@ -318,7 +309,7 @@
             this.lvw_history.Location = new System.Drawing.Point(7, 28);
             this.lvw_history.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvw_history.Name = "lvw_history";
-            this.lvw_history.Size = new System.Drawing.Size(464, 488);
+            this.lvw_history.Size = new System.Drawing.Size(661, 377);
             this.lvw_history.TabIndex = 7;
             this.lvw_history.UseCompatibleStateImageBehavior = false;
             this.lvw_history.View = System.Windows.Forms.View.Details;
@@ -343,7 +334,7 @@
             // 
             // btn_cancelBuy
             // 
-            this.btn_cancelBuy.Location = new System.Drawing.Point(520, 410);
+            this.btn_cancelBuy.Location = new System.Drawing.Point(539, 410);
             this.btn_cancelBuy.Name = "btn_cancelBuy";
             this.btn_cancelBuy.Size = new System.Drawing.Size(130, 30);
             this.btn_cancelBuy.TabIndex = 1;
@@ -419,19 +410,41 @@
             this.btn_depositMoney.Text = "Depositar";
             this.btn_depositMoney.Click += new System.EventHandler(this.btn_depositMoney_Click);
             // 
+            // ts_Options
+            // 
+            this.ts_Options.Location = new System.Drawing.Point(0, 0);
+            this.ts_Options.Name = "ts_Options";
+            this.ts_Options.Size = new System.Drawing.Size(100, 25);
+            this.ts_Options.TabIndex = 0;
+            // 
+            // tsddb_Ver
+            // 
+            this.tsddb_Ver.Name = "tsddb_Ver";
+            this.tsddb_Ver.Size = new System.Drawing.Size(23, 23);
+            // 
+            // tsb_Open
+            // 
+            this.tsb_Open.Name = "tsb_Open";
+            this.tsb_Open.Size = new System.Drawing.Size(23, 23);
+            // 
+            // tsb_Cancel_Buy
+            // 
+            this.tsb_Cancel_Buy.Name = "tsb_Cancel_Buy";
+            this.tsb_Cancel_Buy.Size = new System.Drawing.Size(23, 23);
+            // 
             // cms_LvwProducts
             // 
             this.cms_LvwProducts.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cms_LvwProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adicionarComoFavToolStripMenuItem});
             this.cms_LvwProducts.Name = "cms_LvwProducts";
-            this.cms_LvwProducts.Size = new System.Drawing.Size(246, 30);
+            this.cms_LvwProducts.Size = new System.Drawing.Size(210, 30);
             // 
             // adicionarComoFavToolStripMenuItem
             // 
             this.adicionarComoFavToolStripMenuItem.Image = global::Portal_Compras.Properties.Resources.heart;
             this.adicionarComoFavToolStripMenuItem.Name = "adicionarComoFavToolStripMenuItem";
-            this.adicionarComoFavToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
+            this.adicionarComoFavToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
             this.adicionarComoFavToolStripMenuItem.Text = "Adicionar como Favorito";
             this.adicionarComoFavToolStripMenuItem.Click += new System.EventHandler(this.adicionarComoFavToolStripMenuItem_Click);
             // 
@@ -466,9 +479,6 @@
             this.tp_Buy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).EndInit();
             this.tp_History.ResumeLayout(false);
-            this.tp_History.PerformLayout();
-            this.ts_Options.ResumeLayout(false);
-            this.ts_Options.PerformLayout();
             this.tp_Profile.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nud_depositMoney)).EndInit();
             this.cms_LvwProducts.ResumeLayout(false);
@@ -483,6 +493,14 @@
         private System.Windows.Forms.TabControl tc_Options;
         private System.Windows.Forms.TabPage tp_Buy;
         private System.Windows.Forms.TabPage tp_History;
+        private ToolStrip ts_Options;
+        private ToolStripDropDownButton tsddb_Ver;
+        private ToolStripButton tsb_Open;
+        private ToolStripButton tsb_Cancel_Buy;
+        private ListView lvw_history;
+        private ColumnHeader ch_Number;
+        private ColumnHeader ch_Date;
+        private ColumnHeader ch_Total_Price;
         private System.Windows.Forms.TabPage tp_Profile;
 
         private System.Windows.Forms.Label label1;
@@ -513,6 +531,8 @@
 
         private System.Windows.Forms.ContextMenuStrip cms_LvwProducts;
         private System.Windows.Forms.ToolStripMenuItem adicionarComoFavToolStripMenuItem;
+        private ToolStripMenuItem ltsmi_List;
+        private ToolStripMenuItem ltsm_Icons;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel pnl_TopBar;
         private System.Windows.Forms.Label lbl_Title;
