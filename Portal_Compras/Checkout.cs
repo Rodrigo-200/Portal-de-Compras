@@ -12,7 +12,7 @@ namespace Portal_Compras
 {
     public partial class Checkout : Form
     {
-        EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
+         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
         public Checkout()
         {
             InitializeComponent();
@@ -20,6 +20,8 @@ namespace Portal_Compras
 
         private void btn_finalizeBuy_Click(object sender, EventArgs e)
         {
+            EntitiesBarEscola = new EntitiesBarEscola();
+
             //Perguntar ao professor
              EntitiesBarEscola = new EntitiesBarEscola();
 
@@ -39,7 +41,7 @@ namespace Portal_Compras
             }
             else
             {
-                foreach (var item in EntitiesBarEscola.CART_ITEMS.Where(i => i.Cart_ID == EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault().Cart_ID))
+                foreach (var item in EntitiesBarEscola.CART_ITEMS.Where(i => i.Cart_ID == EntitiesBarEscola.CART.FirstOrDefault(u => u.User_ID == Generic.current_Logged_Client.ID).Cart_ID).ToList())
                 {
                     if (item.Product.Stock < item.Quantity)
                     {
