@@ -440,20 +440,28 @@ namespace Portal_Compras
 
             foreach (BUYS Receipt in EntitiesBarEscola.BUYS.Where(b => b.ID_CLIENT == Generic.current_Logged_Client.ID))
             {
-                ListViewItem ReceiptNumber = new ListViewItem();
-                ReceiptNumber.Text = Receipt.ID.ToString();
-                ReceiptNumber.Tag = Receipt.ID.ToString();
+                    ListViewItem ReceiptNumber = new ListViewItem();
+                    ReceiptNumber.Text = Receipt.ID.ToString();
+                    ReceiptNumber.Tag = Receipt.ID.ToString();
 
-                ListViewItem.ListViewSubItem Date = new ListViewItem.ListViewSubItem();
-                Date.Text = Receipt.DATE.ToString();
-                Date.Tag = Date.Text;
+                    ListViewItem.ListViewSubItem Date = new ListViewItem.ListViewSubItem();
+                    Date.Text = Receipt.DATE.ToString();
+                    Date.Tag = Date.Text;
 
-                ListViewItem.ListViewSubItem Total_Price = new ListViewItem.ListViewSubItem();
-                Total_Price.Text = Receipt.TOTAL.ToString();
-                Total_Price.Tag = Total_Price.Text;
+                    ListViewItem.ListViewSubItem Total_Price = new ListViewItem.ListViewSubItem();
+                    Total_Price.Text = Receipt.TOTAL.ToString();
+                    Total_Price.Tag = Total_Price.Text;
 
-                ReceiptNumber.SubItems.Add(Date);
-                ReceiptNumber.SubItems.Add(Total_Price);
+                    ReceiptNumber.SubItems.Add(Date);
+                    ReceiptNumber.SubItems.Add(Total_Price);
+
+
+
+                if(Receipt.IS_DELETED == true)
+                {
+                    ReceiptNumber.ForeColor = System.Drawing.Color.LightGray;
+                    ReceiptNumber.Font = new System.Drawing.Font(ReceiptNumber.Font, System.Drawing.FontStyle.Strikeout);
+                }
 
                 lvw_history.Items.Add(ReceiptNumber);
             }
@@ -495,12 +503,17 @@ namespace Portal_Compras
             EntitiesBarEscola = new EntitiesBarEscola();
 
             string msg = "";
-            BUYS Selected_Buy = new BUYS();
-            Selected_Buy.ID = int.Parse(lvw_history.SelectedItems[0].Tag.ToString());
-            Selected_Buy.TOTAL = decimal.Parse(lvw_history.SelectedItems[0].SubItems[2].Tag.ToString());
+            int Buy_Id = int.Parse(lvw_history.SelectedItems[0].Tag.ToString());
+            BUYS Selected_Buy = EntitiesBarEscola.BUYS.Where(b => b.ID == Buy_Id).FirstOrDefault();
+            if(Selected_Buy.IS_DELETED == true)
+            {
+                MessageBox.Show("Esta compra foi cancelada!", "Cancel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            List<BUY_PRODUCTS> Buy_Products = EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Selected_Buy.ID).ToList();
 
-            foreach (BUY_PRODUCTS Receipt_Item in EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Selected_Buy.ID))
+            foreach (BUY_PRODUCTS Receipt_Item in Buy_Products)
             {
                 string disc = Receipt_Item.DISCOUNT == null ? " " : "(Desconto: " + Receipt_Item.DISCOUNT.ToString() + "%)";
                 msg += $"{Receipt_Item.PRODUCT_NAME} {disc} \n{Receipt_Item.QUANTITY} X\t {Receipt_Item.PRICE / Receipt_Item.QUANTITY} \t\t {Receipt_Item.PRICE} \n\n";
@@ -548,9 +561,11 @@ namespace Portal_Compras
         private void ltsm_Icons_Click(object sender, EventArgs e)
         {
             lvw_history.View = View.LargeIcon;
+            lvw_history.LargeImageList = iml_ListView;
 
-            foreach(ListViewItem item in lvw_history.Items)
+            foreach (ListViewItem item in lvw_history.Items)
             {// ID - Date
+                item.ImageIndex = 0;
                 item.Text=item.SubItems[0].Text+ " - " +item.SubItems[1].Text;
             }
         }
@@ -580,6 +595,11 @@ namespace Portal_Compras
         private void btn_refreshProducts_Click(object sender, EventArgs e)
         {
             RefreshAndFetchData();
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

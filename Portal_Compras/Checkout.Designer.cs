@@ -23,15 +23,11 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lbl_Total = new System.Windows.Forms.Label();
             this.btn_exitCheckout = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.nud_QuatityToRemove = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_removeProducts = new System.Windows.Forms.Button();
             this.btn_finalizeBuy = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_QuatityToRemove)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvw_CartItems
@@ -46,7 +42,7 @@
             this.lvw_CartItems.Location = new System.Drawing.Point(9, 10);
             this.lvw_CartItems.Margin = new System.Windows.Forms.Padding(2);
             this.lvw_CartItems.Name = "lvw_CartItems";
-            this.lvw_CartItems.Size = new System.Drawing.Size(451, 285);
+            this.lvw_CartItems.Size = new System.Drawing.Size(468, 313);
             this.lvw_CartItems.TabIndex = 0;
             this.lvw_CartItems.UseCompatibleStateImageBehavior = false;
             this.lvw_CartItems.View = System.Windows.Forms.View.Details;
@@ -70,7 +66,7 @@
             // 
             this.lbl_Total.AutoSize = true;
             this.lbl_Total.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lbl_Total.Location = new System.Drawing.Point(9, 304);
+            this.lbl_Total.Location = new System.Drawing.Point(5, 325);
             this.lbl_Total.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Total.Name = "lbl_Total";
             this.lbl_Total.Size = new System.Drawing.Size(65, 21);
@@ -84,7 +80,7 @@
             this.btn_exitCheckout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_exitCheckout.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btn_exitCheckout.ForeColor = System.Drawing.Color.White;
-            this.btn_exitCheckout.Location = new System.Drawing.Point(9, 10);
+            this.btn_exitCheckout.Location = new System.Drawing.Point(485, 327);
             this.btn_exitCheckout.Margin = new System.Windows.Forms.Padding(2);
             this.btn_exitCheckout.Name = "btn_exitCheckout";
             this.btn_exitCheckout.Size = new System.Drawing.Size(112, 32);
@@ -93,19 +89,10 @@
             this.btn_exitCheckout.UseVisualStyleBackColor = false;
             this.btn_exitCheckout.Click += new System.EventHandler(this.btn_exitCheckout_Click);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btn_exitCheckout);
-            this.panel2.Location = new System.Drawing.Point(464, 304);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(135, 57);
-            this.panel2.TabIndex = 10;
-            // 
             // nud_QuatityToRemove
             // 
             this.nud_QuatityToRemove.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.nud_QuatityToRemove.Location = new System.Drawing.Point(5, 21);
+            this.nud_QuatityToRemove.Location = new System.Drawing.Point(485, 31);
             this.nud_QuatityToRemove.Margin = new System.Windows.Forms.Padding(2);
             this.nud_QuatityToRemove.Maximum = new decimal(new int[] {
             10000,
@@ -130,7 +117,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(5, 2);
+            this.label2.Location = new System.Drawing.Point(481, 9);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 19);
@@ -144,7 +131,7 @@
             this.btn_removeProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_removeProducts.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btn_removeProducts.ForeColor = System.Drawing.Color.White;
-            this.btn_removeProducts.Location = new System.Drawing.Point(9, 57);
+            this.btn_removeProducts.Location = new System.Drawing.Point(485, 61);
             this.btn_removeProducts.Margin = new System.Windows.Forms.Padding(2);
             this.btn_removeProducts.Name = "btn_removeProducts";
             this.btn_removeProducts.Size = new System.Drawing.Size(112, 32);
@@ -160,7 +147,7 @@
             this.btn_finalizeBuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_finalizeBuy.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btn_finalizeBuy.ForeColor = System.Drawing.Color.White;
-            this.btn_finalizeBuy.Location = new System.Drawing.Point(9, 250);
+            this.btn_finalizeBuy.Location = new System.Drawing.Point(485, 281);
             this.btn_finalizeBuy.Margin = new System.Windows.Forms.Padding(2);
             this.btn_finalizeBuy.Name = "btn_finalizeBuy";
             this.btn_finalizeBuy.Size = new System.Drawing.Size(112, 32);
@@ -169,26 +156,17 @@
             this.btn_finalizeBuy.UseVisualStyleBackColor = false;
             this.btn_finalizeBuy.Click += new System.EventHandler(this.btn_finalizeBuy_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btn_finalizeBuy);
-            this.panel1.Controls.Add(this.btn_removeProducts);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.nud_QuatityToRemove);
-            this.panel1.Location = new System.Drawing.Point(464, 10);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(135, 284);
-            this.panel1.TabIndex = 9;
-            // 
             // Checkout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(608, 370);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btn_exitCheckout);
+            this.Controls.Add(this.btn_finalizeBuy);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btn_removeProducts);
+            this.Controls.Add(this.nud_QuatityToRemove);
             this.Controls.Add(this.lbl_Total);
             this.Controls.Add(this.lvw_CartItems);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -197,10 +175,7 @@
             this.Name = "Checkout";
             this.Text = "Checkout";
             this.Load += new System.EventHandler(this.Checkout_Load);
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nud_QuatityToRemove)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,11 +189,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown nud_QuatityToRemove;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_removeProducts;
         private System.Windows.Forms.Button btn_finalizeBuy;
-        private System.Windows.Forms.Panel panel1;
     }
 }

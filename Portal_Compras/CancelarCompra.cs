@@ -45,23 +45,45 @@ namespace Portal_Compras
                 {
                     decimal productPrice = decimal.Parse(product.SubItems[2].Text.Split(' ')[0]);
                     int productQuantity = int.Parse(product.SubItems[1].Text);
+                    var ProductToUpdate = EntitiesBarEscola.Product.Where(p => p.ID == productToCancel.ID_PRODUCT).FirstOrDefault();
 
-                    productToCancel.PRICE = productPrice;
-                    productToCancel.QUANTITY = productQuantity;
+                    if (productQuantity != 0)
+                    {
+
+                        if (ProductToUpdate != null)
+                        {
+                            ProductToUpdate.Stock += productToCancel.QUANTITY - productQuantity;
+                        }
+
+                        productToCancel.PRICE = productPrice;
+                        productToCancel.QUANTITY = productQuantity;
+                    }
+                    else
+                    {
+                        if (ProductToUpdate != null)
+                        {
+                            ProductToUpdate.Stock += productToCancel.QUANTITY;
+                        }
+                    }
                     productToCancel.Is_Deleted = productQuantity == 0 ? true : false;
 
                     // Update the total refund amount
                     BUY_PRODUCTS MoneyToReturn = Products_To_Cancel.Where(p => p.PRODUCT_NAME == product.Text).FirstOrDefault();
-                    totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
-
-                    // Update the product stock
-                    var ProductToUpdate = EntitiesBarEscola.Product.Where(p => p.ID == productToCancel.ID_PRODUCT).FirstOrDefault();
-                    if (ProductToUpdate != null)
+                    if (productQuantity == 0)
                     {
-                        ProductToUpdate.Stock += productQuantity;
+                        totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
+                    }
+                    else
+                    {
+                        totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
                     }
 
+
+
                     newTotal += productPrice;
+
+                    productToCancel.PRICE = productPrice;
+                    productToCancel.QUANTITY = productQuantity;
                 }
             }
 
@@ -86,6 +108,8 @@ namespace Portal_Compras
 
             lvw_Full_Receipt.Items.Clear();
 
+            int AllDeleted = 0;
+
             foreach(BUY_PRODUCTS Buy_Product in EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel ))
             {
                 if (Buy_Product.Is_Deleted != true)
@@ -107,6 +131,24 @@ namespace Portal_Compras
 
                     lvw_Full_Receipt.Items.Add(Product);
                 }
+                else
+                {
+                    AllDeleted++;
+                }
+            }
+
+            if (AllDeleted == EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel).Count())
+            {
+                BUYS Buy = EntitiesBarEscola.BUYS.Where(b => b.ID == Buy_To_Cancel).FirstOrDefault();
+                if(Buy != null)
+                {
+                    EntitiesBarEscola.BUYS.Where(b => b.ID == Buy_To_Cancel).FirstOrDefault().IS_DELETED = true;
+                    EntitiesBarEscola.SaveChanges();
+
+                    MessageBox.Show("Não existem mais produtos para devolver!", "Cancel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+
             }
         }
 

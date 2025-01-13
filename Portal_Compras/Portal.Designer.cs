@@ -20,6 +20,7 @@ namespace Portal_Compras
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Portal));
             this.tc_Options = new System.Windows.Forms.TabControl();
             this.tp_Buy = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -35,16 +36,10 @@ namespace Portal_Compras
             this.lbl_Search_Message = new System.Windows.Forms.Label();
             this.tp_History = new System.Windows.Forms.TabPage();
             this.tsp_Open = new System.Windows.Forms.ToolStrip();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsb_Open = new System.Windows.Forms.ToolStripButton();
-            this.tsb_Cancel_Buy = new System.Windows.Forms.ToolStripButton();
             this.lvw_history = new System.Windows.Forms.ListView();
             this.ch_Number = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch_Total_Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btn_cancelBuy = new System.Windows.Forms.Button();
             this.tp_Profile = new System.Windows.Forms.TabPage();
             this.lbl_username = new System.Windows.Forms.Label();
             this.lbl_name = new System.Windows.Forms.Label();
@@ -60,8 +55,14 @@ namespace Portal_Compras
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lbl_Title = new System.Windows.Forms.Label();
             this.pnl_TopBar = new System.Windows.Forms.Panel();
+            this.iml_ListView = new System.Windows.Forms.ImageList(this.components);
             this.chk_showFavorites = new System.Windows.Forms.CheckBox();
             this.btn_openCart = new System.Windows.Forms.Button();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsb_Open = new System.Windows.Forms.ToolStripButton();
+            this.tsb_Cancel_Buy = new System.Windows.Forms.ToolStripButton();
             this.btn_logout = new System.Windows.Forms.Button();
             this.btn_refreshProducts = new System.Windows.Forms.Button();
             this.adicionarComoFavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -223,7 +224,6 @@ namespace Portal_Compras
             this.tp_History.BackColor = System.Drawing.Color.White;
             this.tp_History.Controls.Add(this.tsp_Open);
             this.tp_History.Controls.Add(this.lvw_history);
-            this.tp_History.Controls.Add(this.btn_cancelBuy);
             this.tp_History.Location = new System.Drawing.Point(4, 26);
             this.tp_History.Name = "tp_History";
             this.tp_History.Size = new System.Drawing.Size(672, 450);
@@ -239,51 +239,9 @@ namespace Portal_Compras
             this.tsb_Cancel_Buy});
             this.tsp_Open.Location = new System.Drawing.Point(0, 0);
             this.tsp_Open.Name = "tsp_Open";
-            this.tsp_Open.Size = new System.Drawing.Size(672, 25);
+            this.tsp_Open.Size = new System.Drawing.Size(672, 27);
             this.tsp_Open.TabIndex = 9;
             this.tsp_Open.Text = "toolStrip1";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(36, 22);
-            this.toolStripDropDownButton1.Text = "Ver";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
-            this.toolStripMenuItem1.Text = "Lista";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.ltsmi_List_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 22);
-            this.toolStripMenuItem2.Text = "ícones";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.ltsm_Icons_Click);
-            // 
-            // tsb_Open
-            // 
-            this.tsb_Open.Enabled = false;
-            this.tsb_Open.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsb_Open.Name = "tsb_Open";
-            this.tsb_Open.Size = new System.Drawing.Size(37, 22);
-            this.tsb_Open.Text = "Abrir";
-            this.tsb_Open.Click += new System.EventHandler(this.tsb_Open_Click);
-            // 
-            // tsb_Cancel_Buy
-            // 
-            this.tsb_Cancel_Buy.Enabled = false;
-            this.tsb_Cancel_Buy.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsb_Cancel_Buy.Name = "tsb_Cancel_Buy";
-            this.tsb_Cancel_Buy.Size = new System.Drawing.Size(103, 22);
-            this.tsb_Cancel_Buy.Text = "Cancelar Compra";
-            this.tsb_Cancel_Buy.Click += new System.EventHandler(this.tsb_Cancel_Buy_Click);
             // 
             // lvw_history
             // 
@@ -296,7 +254,7 @@ namespace Portal_Compras
             this.lvw_history.Location = new System.Drawing.Point(1, 29);
             this.lvw_history.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvw_history.Name = "lvw_history";
-            this.lvw_history.Size = new System.Drawing.Size(667, 376);
+            this.lvw_history.Size = new System.Drawing.Size(667, 419);
             this.lvw_history.TabIndex = 7;
             this.lvw_history.UseCompatibleStateImageBehavior = false;
             this.lvw_history.View = System.Windows.Forms.View.Details;
@@ -319,14 +277,6 @@ namespace Portal_Compras
             this.ch_Total_Price.Text = "Preço Total";
             this.ch_Total_Price.Width = 103;
             // 
-            // btn_cancelBuy
-            // 
-            this.btn_cancelBuy.Location = new System.Drawing.Point(539, 410);
-            this.btn_cancelBuy.Name = "btn_cancelBuy";
-            this.btn_cancelBuy.Size = new System.Drawing.Size(130, 30);
-            this.btn_cancelBuy.TabIndex = 1;
-            this.btn_cancelBuy.Text = "Cancelar Compra";
-            // 
             // tp_Profile
             // 
             this.tp_Profile.BackColor = System.Drawing.Color.White;
@@ -335,9 +285,9 @@ namespace Portal_Compras
             this.tp_Profile.Controls.Add(this.lbl_NIF);
             this.tp_Profile.Controls.Add(this.nud_depositMoney);
             this.tp_Profile.Controls.Add(this.btn_depositMoney);
-            this.tp_Profile.Location = new System.Drawing.Point(4, 26);
+            this.tp_Profile.Location = new System.Drawing.Point(4, 22);
             this.tp_Profile.Name = "tp_Profile";
-            this.tp_Profile.Size = new System.Drawing.Size(672, 450);
+            this.tp_Profile.Size = new System.Drawing.Size(672, 454);
             this.tp_Profile.TabIndex = 2;
             this.tp_Profile.Text = "Perfil";
             // 
@@ -457,6 +407,12 @@ namespace Portal_Compras
             this.pnl_TopBar.Size = new System.Drawing.Size(700, 50);
             this.pnl_TopBar.TabIndex = 2;
             // 
+            // iml_ListView
+            // 
+            this.iml_ListView.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iml_ListView.ImageStream")));
+            this.iml_ListView.TransparentColor = System.Drawing.Color.Transparent;
+            this.iml_ListView.Images.SetKeyName(0, "receipt.png");
+            // 
             // chk_showFavorites
             // 
             this.chk_showFavorites.Appearance = System.Windows.Forms.Appearance.Button;
@@ -484,6 +440,51 @@ namespace Portal_Compras
             this.toolTip1.SetToolTip(this.btn_openCart, "Carrinho");
             this.btn_openCart.Click += new System.EventHandler(this.btn_Cart_Click);
             // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
+            this.toolStripDropDownButton1.Image = global::Portal_Compras.Properties.Resources.view_list;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(56, 24);
+            this.toolStripDropDownButton1.Text = "Ver";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
+            this.toolStripMenuItem1.Text = "Lista";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ltsmi_List_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 22);
+            this.toolStripMenuItem2.Text = "ícones";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.ltsm_Icons_Click);
+            // 
+            // tsb_Open
+            // 
+            this.tsb_Open.Enabled = false;
+            this.tsb_Open.Image = global::Portal_Compras.Properties.Resources.share;
+            this.tsb_Open.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_Open.Name = "tsb_Open";
+            this.tsb_Open.Size = new System.Drawing.Size(57, 24);
+            this.tsb_Open.Text = "Abrir";
+            this.tsb_Open.Click += new System.EventHandler(this.tsb_Open_Click);
+            // 
+            // tsb_Cancel_Buy
+            // 
+            this.tsb_Cancel_Buy.Enabled = false;
+            this.tsb_Cancel_Buy.Image = global::Portal_Compras.Properties.Resources.close;
+            this.tsb_Cancel_Buy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_Cancel_Buy.Name = "tsb_Cancel_Buy";
+            this.tsb_Cancel_Buy.Size = new System.Drawing.Size(123, 24);
+            this.tsb_Cancel_Buy.Text = "Cancelar Compra";
+            this.tsb_Cancel_Buy.Click += new System.EventHandler(this.tsb_Cancel_Buy_Click);
+            // 
             // btn_logout
             // 
             this.btn_logout.BackgroundImage = global::Portal_Compras.Properties.Resources.logout;
@@ -495,6 +496,7 @@ namespace Portal_Compras
             this.btn_logout.Size = new System.Drawing.Size(28, 33);
             this.btn_logout.TabIndex = 1;
             this.btn_logout.UseVisualStyleBackColor = true;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
             // btn_refreshProducts
             // 
@@ -576,7 +578,6 @@ namespace Portal_Compras
         private System.Windows.Forms.Label lbl_Search_Message;
 
         private System.Windows.Forms.ListView lstvw_history;
-        private System.Windows.Forms.Button btn_cancelBuy;
 
         private System.Windows.Forms.Label lbl_username;
         private System.Windows.Forms.Label lbl_name;
@@ -599,5 +600,6 @@ namespace Portal_Compras
         private Panel pnl_TopBar;
         private ToolStripButton tsb_Cancel_Buy;
         private ToolStripButton tsb_Open;
+        private ImageList iml_ListView;
     }
 }

@@ -86,7 +86,7 @@ namespace Portal_Compras
                         ID_PRODUCT = item.Product_ID,
                         QUANTITY = Convert.ToInt32(item.Quantity),
                         PRICE = item.Quantity * Convert.ToDecimal(item.Product.Price_Discount == null ? item.Product.Price : item.Product.Price_Discount),
-                        DISCOUNT = item.Product.Price_Discount == null ? null : item.Product.Discount.Where(p => p.PRODUCT_ID == item.Product_ID).FirstOrDefault().PERCENTAGE,
+                        DISCOUNT = item.Product.Price_Discount == null ? null : item.Product.Discount.Where(p => p.PRODUCT_ID == item.Product_ID && DateTime.Now >= p.FROM && DateTime.Now <= p.TO).FirstOrDefault().PERCENTAGE,
                         PRODUCT_NAME = item.Product.Name
                     };
                     EntitiesBarEscola.BUY_PRODUCTS.Add(buy_Products);
