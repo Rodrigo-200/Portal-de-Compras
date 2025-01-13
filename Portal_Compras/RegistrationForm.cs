@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Portal_Compras
@@ -53,10 +47,7 @@ namespace Portal_Compras
             }
         }
 
-        private void btn_GobackToLoginPage_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void btn_GobackToLoginPage_Click(object sender, EventArgs e) => Close();
 
         private void clearInputs()
         {

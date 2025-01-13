@@ -38,7 +38,14 @@
             this.btn_addToCart = new System.Windows.Forms.Button();
             this.lbl_Search_Message = new System.Windows.Forms.Label();
             this.tp_History = new System.Windows.Forms.TabPage();
-            this.lstvw_history = new System.Windows.Forms.ListView();
+            this.ts_Options = new System.Windows.Forms.ToolStrip();
+            this.tsddb_Ver = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsb_Open = new System.Windows.Forms.ToolStripButton();
+            this.tsb_Cancel_Buy = new System.Windows.Forms.ToolStripButton();
+            this.lvw_history = new System.Windows.Forms.ListView();
+            this.ch_Number = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch_Total_Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btn_cancelBuy = new System.Windows.Forms.Button();
             this.tp_Profile = new System.Windows.Forms.TabPage();
             this.lbl_username = new System.Windows.Forms.Label();
@@ -49,12 +56,15 @@
             this.btn_depositMoney = new System.Windows.Forms.Button();
             this.cms_LvwProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.adicionarComoFavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ltsmi_List = new System.Windows.Forms.ToolStripMenuItem();
+            this.ltsm_Icons = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnl_TopBar.SuspendLayout();
             this.tc_Options.SuspendLayout();
             this.tp_Buy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).BeginInit();
             this.tp_History.SuspendLayout();
+            this.ts_Options.SuspendLayout();
             this.tp_Profile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_depositMoney)).BeginInit();
             this.cms_LvwProducts.SuspendLayout();
@@ -106,7 +116,10 @@
             this.tc_Options.Name = "tc_Options";
             this.tc_Options.SelectedIndex = 0;
             this.tc_Options.Size = new System.Drawing.Size(680, 480);
-            this.tc_Options.TabIndex = 1;
+            this.tc_Options.TabIndex = 0;
+            this.tc_Options.SelectedIndexChanged += new System.EventHandler(this.tc_Options_SelectedIndexChanged);
+            this.tc_Options.TabIndexChanged += new System.EventHandler(this.tc_Options_TabIndexChanged);
+
             // 
             // tp_Buy
             // 
@@ -285,7 +298,7 @@
             this.tp_History.TabIndex = 1;
             this.tp_History.Text = "Histórico";
             // 
-            // lstvw_history
+            // tsb_Cancel_Buy
             // 
             this.lstvw_history.HideSelection = false;
             this.lstvw_history.Location = new System.Drawing.Point(10, 10);
@@ -293,6 +306,40 @@
             this.lstvw_history.Size = new System.Drawing.Size(640, 390);
             this.lstvw_history.TabIndex = 0;
             this.lstvw_history.UseCompatibleStateImageBehavior = false;
+            // 
+            // lvw_history
+            // 
+            this.lvw_history.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ch_Number,
+            this.ch_Date,
+            this.ch_Total_Price});
+            this.lvw_history.FullRowSelect = true;
+            this.lvw_history.HideSelection = false;
+            this.lvw_history.Location = new System.Drawing.Point(7, 28);
+            this.lvw_history.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lvw_history.Name = "lvw_history";
+            this.lvw_history.Size = new System.Drawing.Size(464, 488);
+            this.lvw_history.TabIndex = 7;
+            this.lvw_history.UseCompatibleStateImageBehavior = false;
+            this.lvw_history.View = System.Windows.Forms.View.Details;
+            this.lvw_history.SelectedIndexChanged += new System.EventHandler(this.lvw_history_SelectedIndexChanged);
+            this.lvw_history.Click += new System.EventHandler(this.lvw_history_Click);
+            this.lvw_history.DoubleClick += new System.EventHandler(this.lvw_history_DoubleClick);
+            // 
+            // ch_Number
+            // 
+            this.ch_Number.Text = "Número";
+            this.ch_Number.Width = 94;
+            // 
+            // ch_Date
+            // 
+            this.ch_Date.Text = "Data da Compra";
+            this.ch_Date.Width = 133;
+            // 
+            // ch_Total_Price
+            // 
+            this.ch_Total_Price.Text = "Preço Total";
+            this.ch_Total_Price.Width = 103;
             // 
             // btn_cancelBuy
             // 
@@ -374,18 +421,33 @@
             // 
             // cms_LvwProducts
             // 
+            this.cms_LvwProducts.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cms_LvwProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adicionarComoFavToolStripMenuItem});
             this.cms_LvwProducts.Name = "cms_LvwProducts";
-            this.cms_LvwProducts.Size = new System.Drawing.Size(206, 26);
+            this.cms_LvwProducts.Size = new System.Drawing.Size(246, 30);
             // 
             // adicionarComoFavToolStripMenuItem
             // 
             this.adicionarComoFavToolStripMenuItem.Image = global::Portal_Compras.Properties.Resources.heart;
             this.adicionarComoFavToolStripMenuItem.Name = "adicionarComoFavToolStripMenuItem";
-            this.adicionarComoFavToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.adicionarComoFavToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.adicionarComoFavToolStripMenuItem.Text = "Adicionar como Favorito";
             this.adicionarComoFavToolStripMenuItem.Click += new System.EventHandler(this.adicionarComoFavToolStripMenuItem_Click);
+            // 
+            // ltsmi_List
+            // 
+            this.ltsmi_List.Name = "ltsmi_List";
+            this.ltsmi_List.Size = new System.Drawing.Size(224, 26);
+            this.ltsmi_List.Text = "Lista";
+            this.ltsmi_List.Click += new System.EventHandler(this.ltsmi_List_Click);
+            // 
+            // ltsm_Icons
+            // 
+            this.ltsm_Icons.Name = "ltsm_Icons";
+            this.ltsm_Icons.Size = new System.Drawing.Size(224, 26);
+            this.ltsm_Icons.Text = "ícones";
+            this.ltsm_Icons.Click += new System.EventHandler(this.ltsm_Icons_Click);
             // 
             // Portal
             // 
@@ -404,6 +466,9 @@
             this.tp_Buy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).EndInit();
             this.tp_History.ResumeLayout(false);
+            this.tp_History.PerformLayout();
+            this.ts_Options.ResumeLayout(false);
+            this.ts_Options.PerformLayout();
             this.tp_Profile.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nud_depositMoney)).EndInit();
             this.cms_LvwProducts.ResumeLayout(false);

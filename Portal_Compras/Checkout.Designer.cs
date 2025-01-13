@@ -75,7 +75,7 @@
             this.lbl_Total.Name = "lbl_Total";
             this.lbl_Total.Size = new System.Drawing.Size(74, 21);
             this.lbl_Total.TabIndex = 1;
-            this.lbl_Total.Text = "Total: 0€";
+            this.lbl_Total.Text = "Total: 0";
             // 
             // btn_finalizeBuy
             // 
