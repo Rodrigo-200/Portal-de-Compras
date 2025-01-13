@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -10,11 +11,18 @@ namespace Portal_Compras
 {
     public partial class Portal : Form
     {
+        CancelarCompra cancelarCompra = new CancelarCompra();
+
+        //Backend - Is_deleted == true
+
+        //.ToList força a ir à BD
         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
+
 
         public Portal(int tabPage = 0)
         {
             InitializeComponent();
+            LoadUserProfile();
             tc_Options.SelectedIndex = tabPage;
             RefreshData();
             decimal Balance = Convert.ToDecimal(Generic.current_Logged_Client.BALANCE);
@@ -24,7 +32,13 @@ namespace Portal_Compras
 
         private void Portal_Load(object sender, EventArgs e)
         {
+        }
 
+        private void LoadUserProfile()
+        {
+            lbl_name.Text = "Name: " + Generic.current_Logged_Client.NAME;
+            lbl_username.Text = "Username: " + Generic.current_Logged_Client.USERNAME;
+            //lbl_NIF.Text = Generic.current_Logged_Client.NIF;
         }
 
         private void RefreshData()
@@ -40,12 +54,10 @@ namespace Portal_Compras
             }
 
             EntitiesBarEscola.ApplyDiscounts();
-            refreshListview();
-
-
+            RefreshListView();
         }
 
-        private void refreshListview()
+        private void RefreshListView()
         {
             lvw_products.Items.Clear();
             foreach (Product product in EntitiesBarEscola.Product)
@@ -246,7 +258,6 @@ namespace Portal_Compras
                 }
 
                 cms_LvwProducts.Show(Cursor.Position);
-
             }
         }
 
@@ -352,7 +363,6 @@ namespace Portal_Compras
 
         private void btn_addToCart_Click(object sender, EventArgs e)
         {
-
             if (EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault() == null)
             {
                 CART cart = new CART
@@ -380,7 +390,6 @@ namespace Portal_Compras
                     };
                     EntitiesBarEscola.CART_ITEMS.Add(cartItem);
                     EntitiesBarEscola.SaveChanges();
-
                 }
                 else
                 {
@@ -402,8 +411,147 @@ namespace Portal_Compras
             lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
         }
 
-        private void Portal_FormClosed(object sender, FormClosedEventArgs e)
+        private void Refresh_History()
         {
+            EntitiesBarEscola = new EntitiesBarEscola();
+
+            lvw_history.Items.Clear();
+
+            foreach (BUYS Receipt in EntitiesBarEscola.BUYS.Where(b => b.ID_CLIENT == Generic.current_Logged_Client.ID))
+            {
+                ListViewItem ReceiptNumber = new ListViewItem();
+                ReceiptNumber.Text = Receipt.ID.ToString();
+                ReceiptNumber.Tag = Receipt.ID.ToString();
+
+                ListViewItem.ListViewSubItem Date = new ListViewItem.ListViewSubItem();
+                Date.Text = Receipt.DATE.ToString();
+                Date.Tag = Date.Text;
+
+                ListViewItem.ListViewSubItem Total_Price = new ListViewItem.ListViewSubItem();
+                Total_Price.Text = Receipt.TOTAL.ToString();
+                Total_Price.Tag = Total_Price.Text;
+
+                ReceiptNumber.SubItems.Add(Date);
+                ReceiptNumber.SubItems.Add(Total_Price);
+
+                lvw_history.Items.Add(ReceiptNumber);
+            }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void tc_Options_TabIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void tc_Options_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Houve uma compra sem produtos!!!!!!!!!!!!!!!!!!!!!!!!!! (irocha) 
+            if (tc_Options.SelectedIndex == 1)
+            {
+                Refresh_History();
+            }
+        }
+
+        private void tsb_Open_Click(object sender, EventArgs e)
+        {
+            Show_Full_Receipt();
+        }
+
+        private void lvw_history_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvw_history.SelectedItems.Count > 0)
+            {
+                Show_Full_Receipt();
+            }
+        }
+
+        private void Show_Full_Receipt()
+        {
+            EntitiesBarEscola = new EntitiesBarEscola();
+
+            string msg = "";
+            BUYS Selected_Buy = new BUYS();
+            Selected_Buy.ID = int.Parse(lvw_history.SelectedItems[0].Tag.ToString());
+            Selected_Buy.TOTAL = decimal.Parse(lvw_history.SelectedItems[0].SubItems[2].Tag.ToString());
+
+
+            foreach (BUY_PRODUCTS Receipt_Item in EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Selected_Buy.ID))
+            {
+                string disc = Receipt_Item.DISCOUNT == null ? " " : "(Desconto: " + Receipt_Item.DISCOUNT.ToString() + "%)";
+                msg += $"{Receipt_Item.PRODUCT_NAME} {disc} \n{Receipt_Item.QUANTITY} X\t {Receipt_Item.PRICE / Receipt_Item.QUANTITY} \t\t {Receipt_Item.PRICE} \n\n";
+            }
+
+            msg += $"Total: {Selected_Buy.TOTAL}€";
+
+            MessageBox.Show(msg, "Fatura", MessageBoxButtons.OK, MessageBoxIcon.None);
+        }
+
+        private void lvw_history_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvw_history.SelectedItems.Count > 0)
+            {
+                tsb_Open.Enabled = true;
+                tsb_Cancel_Buy.Enabled = true;
+            }
+            else
+            {
+                tsb_Open.Enabled = false;
+                tsb_Cancel_Buy.Enabled = false;
+            }
+        }
+
+        private void lvw_history_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tp_History_Leave(object sender, EventArgs e)
+        {
+            tsb_Open.Enabled = false;
+            tsb_Cancel_Buy.Enabled = false;
+        }
+
+        private void ltsmi_List_Click(object sender, EventArgs e)
+        {
+            lvw_history.View = View.Details;
+            foreach (ListViewItem item in lvw_history.Items)
+            {
+                item.Text = item.Text.Trim().Split('-')[0];
+            }
+        }
+
+        private void ltsm_Icons_Click(object sender, EventArgs e)
+        {
+            lvw_history.View = View.LargeIcon;
+
+            foreach(ListViewItem item in lvw_history.Items)
+            {// ID - Date
+                item.Text=item.SubItems[0].Text+ " - " +item.SubItems[1].Text;
+            }
+        }
+
+        private void tsb_Cancel_Buy_Click(object sender, EventArgs e)
+        {
+            // user + balance | stock++ | is deleted
+            // no buy_products tem de ter um Is_Returned
+            string msg = $"Tem a certeza que quer cancelar esta compra? \n Vai-lhe ser devolvido {lvw_history.SelectedItems[0].SubItems[2].Tag}€";
+
+            /*
+            if(MessageBox.Show(msg,this.Text,MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation)==DialogResult.OK)
+            {
+
+            }
+            */
+
+            int Buy_To_Cancel = int.Parse(lvw_history.SelectedItems[0].Tag.ToString());
+            this.Visible = false;
+            cancelarCompra = new CancelarCompra(Buy_To_Cancel);
+            cancelarCompra.ShowDialog();
+            this.Visible = true;
         }
     }
 }

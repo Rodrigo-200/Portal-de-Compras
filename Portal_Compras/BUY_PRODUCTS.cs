@@ -20,6 +20,7 @@ namespace Portal_Compras
         public Nullable<double> DISCOUNT { get; set; }
         public int QUANTITY { get; set; }
         public string PRODUCT_NAME { get; set; }
+        public Nullable<bool> Is_Deleted { get; set; }
     
         public virtual BUYS BUYS { get; set; }
         public virtual Product Product { get; set; }
