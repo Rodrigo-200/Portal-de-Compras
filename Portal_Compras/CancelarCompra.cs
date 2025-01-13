@@ -34,18 +34,48 @@ namespace Portal_Compras
         {
             //Afetar a BD
             List<BUY_PRODUCTS> Products_To_Cancel = EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel).ToList();
+            decimal totalRefund = 0;
+            decimal newTotal = 0;
+
 
             foreach (ListViewItem product in lvw_Full_Receipt.CheckedItems)
             {
-                Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault().PRICE = decimal.Parse(product.SubItems[2].Text.Split(' ')[0]);
-                Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault().QUANTITY = int.Parse(product.SubItems[1].Text);
-                Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault().Is_Deleted = int.Parse(product.SubItems[1].Text)==0 ? true : false;
+                var productToCancel = Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault();
+                if (productToCancel != null)
+                {
+                    decimal productPrice = decimal.Parse(product.SubItems[2].Text.Split(' ')[0]);
+                    int productQuantity = int.Parse(product.SubItems[1].Text);
 
-                //EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault().BALANCE +=;
+                    productToCancel.PRICE = productPrice;
+                    productToCancel.QUANTITY = productQuantity;
+                    productToCancel.Is_Deleted = productQuantity == 0 ? true : false;
+
+                    // Update the total refund amount
+                    BUY_PRODUCTS MoneyToReturn = Products_To_Cancel.Where(p => p.PRODUCT_NAME == product.Text).FirstOrDefault();
+                    totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
+
+                    // Update the product stock
+                    var ProductToUpdate = EntitiesBarEscola.Product.Where(p => p.ID == productToCancel.ID_PRODUCT).FirstOrDefault();
+                    if (ProductToUpdate != null)
+                    {
+                        ProductToUpdate.Stock += productQuantity;
+                    }
+
+                    newTotal += productPrice;
+                }
             }
 
-            //EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel).ToList()=Products_To_Cancel.ToList();
+            // Update the user's balance
+            var client = EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault();
+            if (client != null)
+            {
+                client.BALANCE += totalRefund;
+            }
 
+            // Recalculate the new total for the buy
+            EntitiesBarEscola.BUYS.FirstOrDefault(b => b.ID == Buy_To_Cancel).TOTAL = newTotal;
+
+            EntitiesBarEscola.SaveChanges();
             RefreshProducts();
         }
 

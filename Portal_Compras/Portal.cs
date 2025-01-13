@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Portal_Compras
 {
@@ -22,23 +21,44 @@ namespace Portal_Compras
         public Portal(int tabPage = 0)
         {
             InitializeComponent();
-            LoadUserProfile();
             tc_Options.SelectedIndex = tabPage;
+            RefreshAndFetchData();
+            cbb_categoryFilter.SelectedItem = "Todos";
+        }
+
+        private void RefreshAndFetchData()
+        {
+            EntitiesBarEscola = new EntitiesBarEscola();
+            EntitiesBarEscola.ApplyDiscounts();
             RefreshData();
-            decimal Balance = Convert.ToDecimal(Generic.current_Logged_Client.BALANCE);
-            lbl_totalBalance.Text = "Saldo Total: " + Math.Round(Balance, 2) + "€";
+            RefreshListView();
+            Refresh_History();
+            LoadUserProfile();
+
             cbb_categoryFilter.SelectedItem = "Todos";
         }
 
         private void Portal_Load(object sender, EventArgs e)
         {
+            tsb_Cancel_Buy.Enabled = true;
+            decimal Balance = Convert.ToDecimal(Generic.current_Logged_Client.BALANCE);
+            lbl_totalBalance.Text = "Saldo Total: " + Math.Round(Balance, 2) + "€";
         }
 
         private void LoadUserProfile()
         {
-            lbl_name.Text = "Name: " + Generic.current_Logged_Client.NAME;
-            lbl_username.Text = "Username: " + Generic.current_Logged_Client.USERNAME;
-            //lbl_NIF.Text = Generic.current_Logged_Client.NIF;
+            EntitiesBarEscola = new EntitiesBarEscola();
+
+            Generic.current_Logged_Client = EntitiesBarEscola.CLIENT.Where(p => p.ID == Generic.current_Logged_Client.ID).FirstOrDefault();
+
+            if (Generic.current_Logged_Client != null)
+            {
+                lbl_name.Text = "Name: " + Generic.current_Logged_Client.NAME;
+                lbl_username.Text = "Username: " + Generic.current_Logged_Client.USERNAME;
+                decimal Balance = Convert.ToDecimal(Generic.current_Logged_Client.BALANCE);
+                lbl_totalBalance.Text = "Saldo Total: " + Math.Round(Balance, 2) + "€";
+                //lbl_NIF.Text = Generic.current_Logged_Client;
+            }
         }
 
         private void RefreshData()
@@ -206,7 +226,7 @@ namespace Portal_Compras
                     }
                     else
                     {
-                        refreshListview();
+                        RefreshListView();
                         break;
                     }
 
@@ -408,7 +428,8 @@ namespace Portal_Compras
             Generic.current_Logged_Client.BALANCE += Convert.ToDecimal(nud_depositMoney.Value);
             EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault().BALANCE = Generic.current_Logged_Client.BALANCE;
             EntitiesBarEscola.SaveChanges();
-            lbl_totalBalance.Text = "Saldo Total: " + Generic.current_Logged_Client.BALANCE + "€";
+            decimal Balance = Convert.ToDecimal(Generic.current_Logged_Client.BALANCE);
+            lbl_totalBalance.Text = "Saldo Total: " + Math.Round(Balance, 2) + "€";
         }
 
         private void Refresh_History()
@@ -551,7 +572,14 @@ namespace Portal_Compras
             this.Visible = false;
             cancelarCompra = new CancelarCompra(Buy_To_Cancel);
             cancelarCompra.ShowDialog();
+            Refresh_History();
+            LoadUserProfile();
             this.Visible = true;
+        }
+
+        private void btn_refreshProducts_Click(object sender, EventArgs e)
+        {
+            RefreshAndFetchData();
         }
     }
 }
