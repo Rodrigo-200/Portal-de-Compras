@@ -53,10 +53,7 @@ namespace Portal_Compras
             }
         }
 
-        private void btn_GobackToLoginPage_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void btn_GobackToLoginPage_Click(object sender, EventArgs e) => Close();
 
         private void clearInputs()
         {

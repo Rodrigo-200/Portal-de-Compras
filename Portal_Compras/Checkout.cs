@@ -18,13 +18,10 @@ namespace Portal_Compras
             InitializeComponent();
         }
 
-
-
-
         private void btn_finalizeBuy_Click(object sender, EventArgs e)
         {
             //Perguntar ao professor
-            EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
+             EntitiesBarEscola = new EntitiesBarEscola();
 
             if (Generic.current_Logged_Client.BALANCE < Convert.ToDecimal(lbl_Total.Text.Split(':')[1]))
             {
@@ -35,10 +32,10 @@ namespace Portal_Compras
                     this.Visible = false;
                     Portal portal = new Portal(2);
                     portal.ShowDialog();
-                    return;
+                    //return;
                 }
-                else
-                    return;
+
+                return;
             }
             else
             {
@@ -104,11 +101,7 @@ namespace Portal_Compras
             }
         }
 
-        private void Checkout_Load(object sender, EventArgs e)
-        {
-            refreshListView();
-
-        }
+        private void Checkout_Load(object sender, EventArgs e) => refreshListView();
 
         private void refreshListView()
         {
