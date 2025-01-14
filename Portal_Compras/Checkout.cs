@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,10 +13,12 @@ namespace Portal_Compras
 {
     public partial class Checkout : Form
     {
+        Color initialButtonColor = new Color();
         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
         public Checkout()
         {
             InitializeComponent();
+            initialButtonColor = btn_finalizeBuy.BackColor;
         }
 
         private void btn_finalizeBuy_Click(object sender, EventArgs e)
@@ -99,6 +102,20 @@ namespace Portal_Compras
                 EntitiesBarEscola.CART_ITEMS.RemoveRange(EntitiesBarEscola.CART_ITEMS.Where(i => i.Cart_ID == EntitiesBarEscola.CART.Where(u => u.User_ID == Generic.current_Logged_Client.ID).FirstOrDefault().Cart_ID));
                 EntitiesBarEscola.SaveChanges();
                 refreshListView();
+
+
+                string msg = "";
+                List<BUY_PRODUCTS> Buy_Products = EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == buy.ID).ToList();
+
+                foreach (BUY_PRODUCTS Receipt_Item in Buy_Products)
+                {
+                    string disc = Receipt_Item.DISCOUNT == null ? " " : "(Desconto: " + Receipt_Item.DISCOUNT.ToString() + "%)";
+                    msg += $"{Receipt_Item.PRODUCT_NAME} {disc} \n{Receipt_Item.QUANTITY} X\t {Math.Round(Convert.ToDouble(Receipt_Item.PRICE / Receipt_Item.QUANTITY), 2)} \t\t {Math.Round(Convert.ToDouble(Receipt_Item.PRICE), 2)} \n\n";
+                }
+
+                msg += $"Total: {Math.Round(Convert.ToDouble(buy.TOTAL), 2)}€";
+
+                MessageBox.Show($"Compra Finalizada com Sucesso\nResumo de compra:\n\n{msg}", "Compra efetuada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -135,6 +152,18 @@ namespace Portal_Compras
             }
 
             lbl_Total.Text = "Total: " + Math.Round(total, 2).ToString();
+
+            if (lvw_CartItems.Items.Count > 0)
+            {
+                btn_finalizeBuy.Enabled = true;
+                btn_finalizeBuy.BackColor = initialButtonColor;
+
+            }
+            else
+            {
+                btn_finalizeBuy.Enabled = false;
+                btn_finalizeBuy.BackColor = Color.LightGray;
+            }
         }
 
         private void btn_removeProducts_Click(object sender, EventArgs e)

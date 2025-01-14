@@ -18,6 +18,7 @@ namespace Portal_Compras
             string username = txtUsername.Text;
             string password = txtPassword.Text;
             string name = txtName.Text;
+            string nif = txtNIF.Text;
 
             if (db.CLIENT.FirstOrDefault(c => c.USERNAME == username) != null)
             {
@@ -25,13 +26,15 @@ namespace Portal_Compras
             }
             else
             {
-                if (!(string.IsNullOrEmpty(password) && string.IsNullOrEmpty(name)))
+                if (!(string.IsNullOrEmpty(password) && string.IsNullOrEmpty(name) && string.IsNullOrEmpty(password) && string.IsNullOrEmpty(nif)))
                 {
                     CLIENT user = new CLIENT();
 
                     user.NAME = name;
                     user.PASSWORD = password;
                     user.USERNAME = username;
+                    user.NIF = nif;
+                    user.BALANCE = 0;
 
                     db.CLIENT.Add(user);
                     db.SaveChanges();

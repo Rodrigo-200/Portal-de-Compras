@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="99a20776129a42618e2c47f75a898eae" Name="Diagram1" ZoomLevel="53">
-        <EntityTypeShape EntityType="Model.BUY_PRODUCTS" Width="1.5" PointX="8.25" PointY="5.875" />
-        <EntityTypeShape EntityType="Model.BUYS" Width="1.5" PointX="6" PointY="10.125" />
-        <EntityTypeShape EntityType="Model.CART" Width="1.5" PointX="3" PointY="10.25" />
-        <EntityTypeShape EntityType="Model.CART_ITEMS" Width="1.5" PointX="5.25" PointY="6.125" />
-        <EntityTypeShape EntityType="Model.CLIENT" Width="1.5" PointX="3" PointY="2" />
-        <EntityTypeShape EntityType="Model.Discount" Width="1.5" PointX="5.25" PointY="15.375" />
-        <EntityTypeShape EntityType="Model.Favorite_Product" Width="1.5" PointX="5.25" PointY="3.25" />
-        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="3" PointY="5.625" />
-        <EntityTypeShape EntityType="Model.TYPE" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="Model.BUY_PRODUCTS" PointX="8.25" PointY="5.875" Width="1.5" />
+        <EntityTypeShape EntityType="Model.BUYS" PointX="6" PointY="10.125" Width="1.5" />
+        <EntityTypeShape EntityType="Model.CART" PointX="3" PointY="10.25" Width="1.5" />
+        <EntityTypeShape EntityType="Model.CART_ITEMS" PointX="5.25" PointY="6.125" Width="1.5" />
+        <EntityTypeShape EntityType="Model.CLIENT" PointX="3" PointY="1.875" Width="1.5" />
+        <EntityTypeShape EntityType="Model.Discount" PointX="5.25" PointY="15.375" Width="1.5" />
+        <EntityTypeShape EntityType="Model.Favorite_Product" PointX="5.25" PointY="3.25" Width="1.5" />
+        <EntityTypeShape EntityType="Model.Product" PointX="3" PointY="5.625" Width="1.5" />
+        <EntityTypeShape EntityType="Model.TYPE" PointX="0.75" PointY="6.375" Width="1.5" />
         <AssociationConnector Association="Model.FK_BUY_PRODUCTS_BUYS" />
         <AssociationConnector Association="Model.FK_BUY_PRODUCTS_Product" />
         <AssociationConnector Association="Model.FK_BUYS_CLIENT" />
