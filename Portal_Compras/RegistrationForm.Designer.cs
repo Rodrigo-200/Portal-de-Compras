@@ -142,7 +142,6 @@
             this.txtNIF.Name = "txtNIF";
             this.txtNIF.Size = new System.Drawing.Size(265, 30);
             this.txtNIF.TabIndex = 10;
-            this.txtNIF.UseSystemPasswordChar = true;
             // 
             // labelNIF
             // 

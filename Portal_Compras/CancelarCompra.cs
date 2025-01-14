@@ -34,18 +34,65 @@ namespace Portal_Compras
         {
             //Afetar a BD
             List<BUY_PRODUCTS> Products_To_Cancel = EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel).ToList();
+            decimal totalRefund = 0;
+            decimal newTotal = 0;
+
 
             foreach (ListViewItem product in lvw_Full_Receipt.CheckedItems)
             {
-                Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault().PRICE = decimal.Parse(product.SubItems[2].Text.Split(' ')[0]);
-                Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault().QUANTITY = int.Parse(product.SubItems[1].Text);
-                Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault().Is_Deleted = int.Parse(product.SubItems[1].Text)==0 ? true : false;
+                var productToCancel = Products_To_Cancel.Where(b => b.PRODUCT_NAME == product.Text).FirstOrDefault();
+                if (productToCancel != null)
+                {
+                    decimal productPrice = decimal.Parse(product.SubItems[2].Text.Split(' ')[0]);
+                    int productQuantity = int.Parse(product.SubItems[1].Text);
+                    var ProductToUpdate = EntitiesBarEscola.Product.Where(p => p.ID == productToCancel.ID_PRODUCT).FirstOrDefault();
 
-                //EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault().BALANCE +=;
+                    if (productQuantity != 0)
+                    {
+
+                        if (ProductToUpdate != null)
+                        {
+                            ProductToUpdate.Stock += productToCancel.QUANTITY - productQuantity;
+                        }
+
+                        productToCancel.PRICE = productPrice;
+                        productToCancel.QUANTITY = productQuantity;
+                    }
+                    else
+                    {
+                        if (ProductToUpdate != null)
+                        {
+                            ProductToUpdate.Stock += productToCancel.QUANTITY;
+                        }
+                    }
+                    productToCancel.Is_Deleted = productQuantity == 0 ? true : false;
+
+                    // Atualizar o valor a devolver ao cliente
+                    BUY_PRODUCTS MoneyToReturn = Products_To_Cancel.Where(p => p.PRODUCT_NAME == product.Text).FirstOrDefault();
+
+                        totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
+
+
+
+
+                    newTotal += productPrice;
+
+                    productToCancel.PRICE = productPrice;
+                    productToCancel.QUANTITY = productQuantity;
+                }
             }
 
-            //EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel).ToList()=Products_To_Cancel.ToList();
+            // Atualizar o saldo do cliente
+            var client = EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault();
+            if (client != null)
+            {
+                client.BALANCE += totalRefund;
+            }
 
+            // Atualizar o total da compra
+            EntitiesBarEscola.BUYS.FirstOrDefault(b => b.ID == Buy_To_Cancel).TOTAL = newTotal;
+
+            EntitiesBarEscola.SaveChanges();
             RefreshProducts();
         }
 
@@ -55,6 +102,8 @@ namespace Portal_Compras
             //Se a qtd for 0 pôr a rasurado
 
             lvw_Full_Receipt.Items.Clear();
+
+            int AllDeleted = 0;
 
             foreach(BUY_PRODUCTS Buy_Product in EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel ))
             {
@@ -77,6 +126,24 @@ namespace Portal_Compras
 
                     lvw_Full_Receipt.Items.Add(Product);
                 }
+                else
+                {
+                    AllDeleted++;
+                }
+            }
+
+            if (AllDeleted == EntitiesBarEscola.BUY_PRODUCTS.Where(b => b.ID_BUY == Buy_To_Cancel).Count())
+            {
+                BUYS Buy = EntitiesBarEscola.BUYS.Where(b => b.ID == Buy_To_Cancel).FirstOrDefault();
+                if(Buy != null)
+                {
+                    EntitiesBarEscola.BUYS.Where(b => b.ID == Buy_To_Cancel).FirstOrDefault().IS_DELETED = true;
+                    EntitiesBarEscola.SaveChanges();
+
+                    MessageBox.Show("Não existem mais produtos para devolver!", "Cancel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+
             }
         }
 

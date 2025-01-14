@@ -55,6 +55,7 @@
           <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
           <Property Name="USERNAME" Type="varchar" MaxLength="50" />
           <Property Name="BALANCE" Type="money" />
+          <Property Name="NIF" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Discount">
           <Key>
@@ -87,6 +88,7 @@
           <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Stock" Type="int" />
           <Property Name="Price_Discount" Type="money" />
+          <Property Name="Is_Deleted" Type="bit" />
         </EntityType>
         <EntityType Name="TYPE">
           <Key>
@@ -418,6 +420,7 @@
           <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BALANCE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NIF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BUYS" Relationship="Model.FK_BUYS_CLIENT" FromRole="CLIENT" ToRole="BUYS" />
           <NavigationProperty Name="CART" Relationship="Model.FK_CART_CLIENT" FromRole="CLIENT" ToRole="CART" />
           <NavigationProperty Name="Favorite_Product" Relationship="Model.FK_Favorite_Product_CLIENT" FromRole="CLIENT" ToRole="Favorite_Product" />
@@ -456,6 +459,7 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Stock" Type="Int32" />
           <Property Name="Price_Discount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Is_Deleted" Type="Boolean" />
           <NavigationProperty Name="BUY_PRODUCTS" Relationship="Model.FK_BUY_PRODUCTS_Product" FromRole="Product" ToRole="BUY_PRODUCTS" />
           <NavigationProperty Name="CART_ITEMS" Relationship="Model.FK_CART_ITEMS_Product" FromRole="Product" ToRole="CART_ITEMS" />
           <NavigationProperty Name="Discount" Relationship="Model.FK_Discount_Product" FromRole="Product" ToRole="Discount" />
@@ -599,6 +603,7 @@
           <Property Type="Int32" Name="Stock" Nullable="true" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Price_Discount" Nullable="true" Precision="19" />
+          <Property Type="Boolean" Name="Is_Deleted" Nullable="true" />
           <Property Type="DateTime" Name="FROM" Nullable="true" />
           <Property Type="DateTime" Name="TO" Nullable="true" />
           <Property Type="Double" Name="PERCENTAGE" Nullable="true" />
@@ -676,6 +681,7 @@
           <EntitySetMapping Name="CLIENT">
             <EntityTypeMapping TypeName="Model.CLIENT">
               <MappingFragment StoreEntitySet="CLIENT">
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
                 <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
@@ -708,6 +714,7 @@
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="Model.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
                 <ScalarProperty Name="Price_Discount" ColumnName="Price_Discount" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -737,6 +744,7 @@
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Price_Discount" ColumnName="Price_Discount" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
                 <ScalarProperty Name="FROM" ColumnName="FROM" />
                 <ScalarProperty Name="TO" ColumnName="TO" />
                 <ScalarProperty Name="PERCENTAGE" ColumnName="PERCENTAGE" />

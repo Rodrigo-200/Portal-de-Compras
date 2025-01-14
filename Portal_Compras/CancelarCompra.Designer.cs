@@ -2,15 +2,12 @@
 {
     partial class CancelarCompra
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Limpeza de recursos usados.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true se os recursos gerenciados devem ser descartados; caso contrário, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,12 +20,10 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Método exigido para suporte do Windows Form Designer.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelarCompra));
             this.lvw_Full_Receipt = new System.Windows.Forms.ListView();
             this.chk_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chk_Quantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,10 +44,9 @@
             this.chk_Price});
             this.lvw_Full_Receipt.FullRowSelect = true;
             this.lvw_Full_Receipt.HideSelection = false;
-            this.lvw_Full_Receipt.Location = new System.Drawing.Point(9, 54);
-            this.lvw_Full_Receipt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvw_Full_Receipt.Location = new System.Drawing.Point(12, 65);
             this.lvw_Full_Receipt.Name = "lvw_Full_Receipt";
-            this.lvw_Full_Receipt.Size = new System.Drawing.Size(330, 270);
+            this.lvw_Full_Receipt.Size = new System.Drawing.Size(335, 280);
             this.lvw_Full_Receipt.TabIndex = 0;
             this.lvw_Full_Receipt.UseCompatibleStateImageBehavior = false;
             this.lvw_Full_Receipt.View = System.Windows.Forms.View.Details;
@@ -62,39 +56,44 @@
             // chk_Name
             // 
             this.chk_Name.Text = "Nome";
-            this.chk_Name.Width = 79;
+            this.chk_Name.Width = 100;
             // 
             // chk_Quantity
             // 
             this.chk_Quantity.Text = "Quantidade";
-            this.chk_Quantity.Width = 105;
+            this.chk_Quantity.Width = 100;
             // 
             // chk_Price
             // 
             this.chk_Price.Text = "Preço Total";
-            this.chk_Price.Width = 114;
+            this.chk_Price.Width = 120;
             // 
             // btn_Save
             // 
-            this.btn_Save.Location = new System.Drawing.Point(253, 328);
-            this.btn_Save.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Save.FlatAppearance.BorderSize = 0;
+            this.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Save.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_Save.ForeColor = System.Drawing.Color.White;
+            this.btn_Save.Location = new System.Drawing.Point(230, 355);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(85, 28);
+            this.btn_Save.Size = new System.Drawing.Size(115, 40);
             this.btn_Save.TabIndex = 1;
             this.btn_Save.Text = "Guardar";
-            this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.UseVisualStyleBackColor = false;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(9, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label1.Location = new System.Drawing.Point(12, 32);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 13);
+            this.label1.Size = new System.Drawing.Size(210, 19);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Selecione os produtos que quer cancelar:";
+            this.label1.Text = "Selecione os produtos a cancelar:";
             // 
             // ts_Options
             // 
@@ -103,13 +102,13 @@
             this.tsb_Select_All});
             this.ts_Options.Location = new System.Drawing.Point(0, 0);
             this.ts_Options.Name = "ts_Options";
-            this.ts_Options.Size = new System.Drawing.Size(348, 27);
+            this.ts_Options.Size = new System.Drawing.Size(360, 27);
             this.ts_Options.TabIndex = 9;
             this.ts_Options.Text = "toolStrip1";
             // 
             // tsb_Select_All
             // 
-            this.tsb_Select_All.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Select_All.Image")));
+            this.tsb_Select_All.Image = global::Portal_Compras.Properties.Resources.list;
             this.tsb_Select_All.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Select_All.Name = "tsb_Select_All";
             this.tsb_Select_All.Size = new System.Drawing.Size(120, 24);
@@ -118,16 +117,21 @@
             // 
             // CancelarCompra
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 362);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(360, 420);
             this.Controls.Add(this.ts_Options);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.lvw_Full_Receipt);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "CancelarCompra";
-            this.Text = "CancelarCompra";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cancelar Compra";
             this.Load += new System.EventHandler(this.CancelarCompra_Load);
             this.ts_Options.ResumeLayout(false);
             this.ts_Options.PerformLayout();

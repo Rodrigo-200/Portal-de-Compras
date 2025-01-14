@@ -27,6 +27,7 @@ namespace Portal_Compras
         public string PASSWORD { get; set; }
         public string USERNAME { get; set; }
         public Nullable<decimal> BALANCE { get; set; }
+        public string NIF { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BUYS> BUYS { get; set; }

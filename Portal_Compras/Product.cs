@@ -30,6 +30,7 @@ namespace Portal_Compras
         public string Description { get; set; }
         public Nullable<int> Stock { get; set; }
         public Nullable<decimal> Price_Discount { get; set; }
+        public Nullable<bool> Is_Deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BUY_PRODUCTS> BUY_PRODUCTS { get; set; }
