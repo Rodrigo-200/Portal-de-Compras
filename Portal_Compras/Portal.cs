@@ -12,9 +12,6 @@ namespace Portal_Compras
     {
         CancelarCompra cancelarCompra = new CancelarCompra();
 
-        //Backend - Is_deleted == true
-
-        //.ToList força a ir à BD
         EntitiesBarEscola EntitiesBarEscola = new EntitiesBarEscola();
 
 
@@ -104,34 +101,30 @@ namespace Portal_Compras
         private void RefreshListView()
         {
             lvw_products.Items.Clear();
-            foreach (Product product in EntitiesBarEscola.Product)
+            foreach (Product item in EntitiesBarEscola.Product)
             {
-                lvw_products.Items.Clear();
-                foreach (Product item in EntitiesBarEscola.Product)
+                if (item.Is_Deleted != true)
                 {
-                    if (item.Is_Deleted != true)
-                    {
-                        ListViewItem Product = new ListViewItem();
-                        Product.Text = item.Name;
-                        Product.Tag = Product.Text;
+                    ListViewItem Product = new ListViewItem();
+                    Product.Text = item.Name;
+                    Product.Tag = Product.Text;
 
-                        ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
-                        Price.Text = item.Price_Discount == null ? Math.Round(item.Price, 2).ToString() + "€" : Math.Round(Convert.ToDouble(item.Price_Discount), 2).ToString() + "€";
-                        Price.Tag = Price.Text;
+                    ListViewItem.ListViewSubItem Price = new ListViewItem.ListViewSubItem();
+                    Price.Text = item.Price_Discount == null ? Math.Round(item.Price, 2).ToString() + "€" : Math.Round(Convert.ToDouble(item.Price_Discount), 2).ToString() + "€";
+                    Price.Tag = Price.Text;
 
-                        ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
-                        DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID && DateTime.Now >= p.FROM && DateTime.Now <= p.TO).FirstOrDefault().PERCENTAGE.ToString() + "%";
+                    ListViewItem.ListViewSubItem DiscountPercentage = new ListViewItem.ListViewSubItem();
+                    DiscountPercentage.Text = item.Price_Discount == null ? "" : item.Discount.Where(p => p.PRODUCT_ID == item.ID && DateTime.Now >= p.FROM && DateTime.Now <= p.TO).FirstOrDefault().PERCENTAGE.ToString() + "%";
 
-                        ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
-                        Type_Name.Text = item.TYPE.NAME;
-                        Type_Name.Tag = Type_Name.Text;
+                    ListViewItem.ListViewSubItem Type_Name = new ListViewItem.ListViewSubItem();
+                    Type_Name.Text = item.TYPE.NAME;
+                    Type_Name.Tag = Type_Name.Text;
 
-                        Product.SubItems.Add(Price);
-                        Product.SubItems.Add(DiscountPercentage);
-                        Product.SubItems.Add(Type_Name);
+                    Product.SubItems.Add(Price);
+                    Product.SubItems.Add(DiscountPercentage);
+                    Product.SubItems.Add(Type_Name);
 
-                        lvw_products.Items.Add(Product);
-                    }
+                    lvw_products.Items.Add(Product);
                 }
             }
         }
@@ -348,7 +341,7 @@ namespace Portal_Compras
 
         private void chk_showFavorites_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_showFavorites.Checked)
+            if (chk_showFavorites.Checked)
             {
                 chk_showFavorites.BackgroundImage = Properties.Resources.heart__1_;
             }
@@ -479,24 +472,24 @@ namespace Portal_Compras
 
             foreach (BUYS Receipt in EntitiesBarEscola.BUYS.Where(b => b.ID_CLIENT == Generic.current_Logged_Client.ID))
             {
-                    ListViewItem ReceiptNumber = new ListViewItem();
-                    ReceiptNumber.Text = Receipt.ID.ToString();
-                    ReceiptNumber.Tag = Receipt.ID.ToString();
+                ListViewItem ReceiptNumber = new ListViewItem();
+                ReceiptNumber.Text = Receipt.ID.ToString();
+                ReceiptNumber.Tag = Receipt.ID.ToString();
 
-                    ListViewItem.ListViewSubItem Date = new ListViewItem.ListViewSubItem();
-                    Date.Text = Receipt.DATE.ToString();
-                    Date.Tag = Date.Text;
+                ListViewItem.ListViewSubItem Date = new ListViewItem.ListViewSubItem();
+                Date.Text = Receipt.DATE.ToString();
+                Date.Tag = Date.Text;
 
-                    ListViewItem.ListViewSubItem Total_Price = new ListViewItem.ListViewSubItem();
-                    Total_Price.Text = Math.Round(Convert.ToDouble(Receipt.TOTAL), 2).ToString() + "€";
-                    Total_Price.Tag = Total_Price.Text;
+                ListViewItem.ListViewSubItem Total_Price = new ListViewItem.ListViewSubItem();
+                Total_Price.Text = Math.Round(Convert.ToDouble(Receipt.TOTAL), 2).ToString() + "€";
+                Total_Price.Tag = Total_Price.Text;
 
-                    ReceiptNumber.SubItems.Add(Date);
-                    ReceiptNumber.SubItems.Add(Total_Price);
+                ReceiptNumber.SubItems.Add(Date);
+                ReceiptNumber.SubItems.Add(Total_Price);
 
 
 
-                if(Receipt.IS_DELETED == true)
+                if (Receipt.IS_DELETED == true)
                 {
                     ReceiptNumber.ForeColor = System.Drawing.Color.LightGray;
                     ReceiptNumber.Font = new System.Drawing.Font(ReceiptNumber.Font, System.Drawing.FontStyle.Strikeout);
@@ -517,7 +510,6 @@ namespace Portal_Compras
 
         private void tc_Options_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Houve uma compra sem produtos!!!!!!!!!!!!!!!!!!!!!!!!!! (irocha) 
             if (tc_Options.SelectedIndex == 1)
             {
                 Refresh_History();
@@ -544,7 +536,7 @@ namespace Portal_Compras
             string msg = "";
             int Buy_Id = int.Parse(lvw_history.SelectedItems[0].Tag.ToString());
             BUYS Selected_Buy = EntitiesBarEscola.BUYS.Where(b => b.ID == Buy_Id).FirstOrDefault();
-            if(Selected_Buy.IS_DELETED == true)
+            if (Selected_Buy.IS_DELETED == true)
             {
                 MessageBox.Show("Esta compra foi cancelada!", "Cancel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -603,9 +595,9 @@ namespace Portal_Compras
             lvw_history.LargeImageList = iml_ListView;
 
             foreach (ListViewItem item in lvw_history.Items)
-            {// ID - Date
+            {
                 item.ImageIndex = 0;
-                item.Text=item.SubItems[0].Text+ " - " +item.SubItems[1].Text;
+                item.Text = item.SubItems[0].Text + " - " + item.SubItems[1].Text;
             }
         }
 

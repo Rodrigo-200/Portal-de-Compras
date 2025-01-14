@@ -306,44 +306,44 @@
           <EntitySet Name="Product" EntityType="Model.Product" />
           <EntitySet Name="TYPE" EntityType="Model.TYPE" />
           <AssociationSet Name="FK_BUY_PRODUCTS_BUYS" Association="Model.FK_BUY_PRODUCTS_BUYS">
-            <End EntitySet="BUYS" Role="BUYS" />
-            <End EntitySet="BUY_PRODUCTS" Role="BUY_PRODUCTS" />
+            <End Role="BUYS" EntitySet="BUYS" />
+            <End Role="BUY_PRODUCTS" EntitySet="BUY_PRODUCTS" />
           </AssociationSet>
           <AssociationSet Name="FK_BUY_PRODUCTS_Product" Association="Model.FK_BUY_PRODUCTS_Product">
-            <End EntitySet="Product" Role="Product" />
-            <End EntitySet="BUY_PRODUCTS" Role="BUY_PRODUCTS" />
+            <End Role="Product" EntitySet="Product" />
+            <End Role="BUY_PRODUCTS" EntitySet="BUY_PRODUCTS" />
           </AssociationSet>
           <AssociationSet Name="FK_BUYS_CLIENT" Association="Model.FK_BUYS_CLIENT">
-            <End EntitySet="CLIENT" Role="CLIENT" />
-            <End EntitySet="BUYS" Role="BUYS" />
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="BUYS" EntitySet="BUYS" />
           </AssociationSet>
           <AssociationSet Name="FK_CART_CLIENT" Association="Model.FK_CART_CLIENT">
-            <End EntitySet="CLIENT" Role="CLIENT" />
-            <End EntitySet="CART" Role="CART" />
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="CART" EntitySet="CART" />
           </AssociationSet>
           <AssociationSet Name="FK_CART_ITEMS_CART" Association="Model.FK_CART_ITEMS_CART">
-            <End EntitySet="CART" Role="CART" />
-            <End EntitySet="CART_ITEMS" Role="CART_ITEMS" />
+            <End Role="CART" EntitySet="CART" />
+            <End Role="CART_ITEMS" EntitySet="CART_ITEMS" />
           </AssociationSet>
           <AssociationSet Name="FK_CART_ITEMS_Product" Association="Model.FK_CART_ITEMS_Product">
-            <End EntitySet="Product" Role="Product" />
-            <End EntitySet="CART_ITEMS" Role="CART_ITEMS" />
+            <End Role="Product" EntitySet="Product" />
+            <End Role="CART_ITEMS" EntitySet="CART_ITEMS" />
           </AssociationSet>
           <AssociationSet Name="FK_Favorite_Product_CLIENT" Association="Model.FK_Favorite_Product_CLIENT">
-            <End EntitySet="CLIENT" Role="CLIENT" />
-            <End EntitySet="Favorite_Product" Role="Favorite_Product" />
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="Favorite_Product" EntitySet="Favorite_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Discount_Product" Association="Model.FK_Discount_Product">
-            <End EntitySet="Product" Role="Product" />
-            <End EntitySet="Discount" Role="Discount" />
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Discount" EntitySet="Discount" />
           </AssociationSet>
           <AssociationSet Name="FK_Favorite_Product_Product" Association="Model.FK_Favorite_Product_Product">
-            <End EntitySet="Product" Role="Product" />
-            <End EntitySet="Favorite_Product" Role="Favorite_Product" />
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Favorite_Product" EntitySet="Favorite_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Type" Association="Model.FK_Product_Type">
-            <End EntitySet="TYPE" Role="TYPE" />
-            <End EntitySet="Product" Role="Product" />
+            <End Role="TYPE" EntitySet="TYPE" />
+            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <FunctionImport Name="GetFilteredProducts" ReturnType="Collection(Model.GetFilteredProducts_Result)">
             <Parameter Name="SearchText" Mode="In" Type="String" />
@@ -367,12 +367,12 @@
             <PropertyRef Name="ID_BUY" />
             <PropertyRef Name="ID_PRODUCT" />
           </Key>
-          <Property Name="ID_BUY" Nullable="false" Type="Int32" />
-          <Property Name="ID_PRODUCT" Nullable="false" Type="Int32" />
-          <Property Name="PRICE" Precision="19" Scale="4" Type="Decimal" />
+          <Property Name="ID_BUY" Type="Int32" Nullable="false" />
+          <Property Name="ID_PRODUCT" Type="Int32" Nullable="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="DISCOUNT" Type="Double" />
-          <Property Name="QUANTITY" Nullable="false" Type="Int32" />
-          <Property Name="PRODUCT_NAME" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCT_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Is_Deleted" Type="Boolean" />
           <NavigationProperty Name="BUYS" Relationship="Model.FK_BUY_PRODUCTS_BUYS" FromRole="BUY_PRODUCTS" ToRole="BUYS" />
           <NavigationProperty Name="Product" Relationship="Model.FK_BUY_PRODUCTS_Product" FromRole="BUY_PRODUCTS" ToRole="Product" />
@@ -381,10 +381,10 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_CLIENT" Type="Int32" />
-          <Property Name="TOTAL" Precision="19" Scale="4" Type="Decimal" />
-          <Property Name="DATE" Precision="3" Type="DateTime" />
+          <Property Name="TOTAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="BUY_PRODUCTS" Relationship="Model.FK_BUY_PRODUCTS_BUYS" FromRole="BUYS" ToRole="BUY_PRODUCTS" />
           <NavigationProperty Name="CLIENT" Relationship="Model.FK_BUYS_CLIENT" FromRole="BUYS" ToRole="CLIENT" />
@@ -393,9 +393,9 @@
           <Key>
             <PropertyRef Name="Cart_ID" />
           </Key>
-          <Property Name="Cart_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="User_ID" Nullable="false" Type="Int32" />
-          <Property Name="Created_Date" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="CLIENT" Relationship="Model.FK_CART_CLIENT" FromRole="CART" ToRole="CLIENT" />
           <NavigationProperty Name="CART_ITEMS" Relationship="Model.FK_CART_ITEMS_CART" FromRole="CART" ToRole="CART_ITEMS" />
         </EntityType>
@@ -403,11 +403,11 @@
           <Key>
             <PropertyRef Name="Cart_Item_ID" />
           </Key>
-          <Property Name="Cart_Item_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="Cart_ID" Nullable="false" Type="Int32" />
-          <Property Name="Product_ID" Nullable="false" Type="Int32" />
+          <Property Name="Cart_Item_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="Price" Precision="19" Scale="4" Type="Decimal" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="CART" Relationship="Model.FK_CART_ITEMS_CART" FromRole="CART_ITEMS" ToRole="CART" />
           <NavigationProperty Name="Product" Relationship="Model.FK_CART_ITEMS_Product" FromRole="CART_ITEMS" ToRole="Product" />
         </EntityType>
@@ -415,12 +415,12 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="NAME" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="PASSWORD" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="USERNAME" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="BALANCE" Precision="19" Scale="4" Type="Decimal" />
-          <Property Name="NIF" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BALANCE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NIF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BUYS" Relationship="Model.FK_BUYS_CLIENT" FromRole="CLIENT" ToRole="BUYS" />
           <NavigationProperty Name="CART" Relationship="Model.FK_CART_CLIENT" FromRole="CLIENT" ToRole="CART" />
           <NavigationProperty Name="Favorite_Product" Relationship="Model.FK_Favorite_Product_CLIENT" FromRole="CLIENT" ToRole="Favorite_Product" />
@@ -429,12 +429,12 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="PRODUCT_ID" Nullable="false" Type="Int32" />
-          <Property Name="FROM" Precision="0" Type="DateTime" />
-          <Property Name="TO" Precision="0" Type="DateTime" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+          <Property Name="FROM" Type="DateTime" Precision="0" />
+          <Property Name="TO" Type="DateTime" Precision="0" />
           <Property Name="PERCENTAGE" Type="Double" />
-          <Property Name="DESCRIPTION" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Product" Relationship="Model.FK_Discount_Product" FromRole="Discount" ToRole="Product" />
         </EntityType>
         <EntityType Name="Favorite_Product">
@@ -442,9 +442,9 @@
             <PropertyRef Name="Id_Product" />
             <PropertyRef Name="Id_Client" />
           </Key>
-          <Property Name="Id_Product" Nullable="false" Type="Int32" />
-          <Property Name="Id_Client" Nullable="false" Type="Int32" />
-          <Property Name="Perguntar" MaxLength="10" FixedLength="true" Unicode="true" Type="String" />
+          <Property Name="Id_Product" Type="Int32" Nullable="false" />
+          <Property Name="Id_Client" Type="Int32" Nullable="false" />
+          <Property Name="Perguntar" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="CLIENT" Relationship="Model.FK_Favorite_Product_CLIENT" FromRole="Favorite_Product" ToRole="CLIENT" />
           <NavigationProperty Name="Product" Relationship="Model.FK_Favorite_Product_Product" FromRole="Favorite_Product" ToRole="Product" />
         </EntityType>
@@ -452,32 +452,32 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Price" Nullable="false" Precision="19" Scale="4" Type="Decimal" />
-          <Property Name="Type_Id" Nullable="false" Type="Int32" />
-          <Property Name="Description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Stock" Type="Int32" />
-          <Property Name="Price_Discount" Precision="19" Scale="4" Type="Decimal" />
+          <Property Name="Price_Discount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Is_Deleted" Type="Boolean" />
           <NavigationProperty Name="BUY_PRODUCTS" Relationship="Model.FK_BUY_PRODUCTS_Product" FromRole="Product" ToRole="BUY_PRODUCTS" />
           <NavigationProperty Name="CART_ITEMS" Relationship="Model.FK_CART_ITEMS_Product" FromRole="Product" ToRole="CART_ITEMS" />
           <NavigationProperty Name="Discount" Relationship="Model.FK_Discount_Product" FromRole="Product" ToRole="Discount" />
           <NavigationProperty Name="Favorite_Product" Relationship="Model.FK_Favorite_Product_Product" FromRole="Product" ToRole="Favorite_Product" />
           <NavigationProperty Name="TYPE" Relationship="Model.FK_Product_Type" FromRole="Product" ToRole="TYPE" />
-          <Property Name="Is_Deleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="TYPE">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="NAME" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="DELETE_DATE" Precision="3" Type="DateTime" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DELETE_DATE" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Model.FK_Product_Type" FromRole="TYPE" ToRole="Product" />
         </EntityType>
         <Association Name="FK_BUY_PRODUCTS_BUYS">
-          <End Type="Model.BUYS" Multiplicity="1" Role="BUYS" />
-          <End Type="Model.BUY_PRODUCTS" Multiplicity="*" Role="BUY_PRODUCTS" />
+          <End Type="Model.BUYS" Role="BUYS" Multiplicity="1" />
+          <End Type="Model.BUY_PRODUCTS" Role="BUY_PRODUCTS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BUYS">
               <PropertyRef Name="ID" />
@@ -488,8 +488,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BUY_PRODUCTS_Product">
-          <End Type="Model.Product" Multiplicity="1" Role="Product" />
-          <End Type="Model.BUY_PRODUCTS" Multiplicity="*" Role="BUY_PRODUCTS" />
+          <End Type="Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="Model.BUY_PRODUCTS" Role="BUY_PRODUCTS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -500,8 +500,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BUYS_CLIENT">
-          <End Type="Model.CLIENT" Multiplicity="0..1" Role="CLIENT" />
-          <End Type="Model.BUYS" Multiplicity="*" Role="BUYS" />
+          <End Type="Model.CLIENT" Role="CLIENT" Multiplicity="0..1" />
+          <End Type="Model.BUYS" Role="BUYS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENT">
               <PropertyRef Name="ID" />
@@ -512,8 +512,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CART_CLIENT">
-          <End Type="Model.CLIENT" Multiplicity="1" Role="CLIENT" />
-          <End Type="Model.CART" Multiplicity="*" Role="CART" />
+          <End Type="Model.CLIENT" Role="CLIENT" Multiplicity="1" />
+          <End Type="Model.CART" Role="CART" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENT">
               <PropertyRef Name="ID" />
@@ -524,8 +524,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CART_ITEMS_CART">
-          <End Type="Model.CART" Multiplicity="1" Role="CART" />
-          <End Type="Model.CART_ITEMS" Multiplicity="*" Role="CART_ITEMS" />
+          <End Type="Model.CART" Role="CART" Multiplicity="1" />
+          <End Type="Model.CART_ITEMS" Role="CART_ITEMS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CART">
               <PropertyRef Name="Cart_ID" />
@@ -536,8 +536,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CART_ITEMS_Product">
-          <End Type="Model.Product" Multiplicity="1" Role="Product" />
-          <End Type="Model.CART_ITEMS" Multiplicity="*" Role="CART_ITEMS" />
+          <End Type="Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="Model.CART_ITEMS" Role="CART_ITEMS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -548,8 +548,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favorite_Product_CLIENT">
-          <End Type="Model.CLIENT" Multiplicity="1" Role="CLIENT" />
-          <End Type="Model.Favorite_Product" Multiplicity="*" Role="Favorite_Product" />
+          <End Type="Model.CLIENT" Role="CLIENT" Multiplicity="1" />
+          <End Type="Model.Favorite_Product" Role="Favorite_Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENT">
               <PropertyRef Name="ID" />
@@ -560,8 +560,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Discount_Product">
-          <End Type="Model.Product" Multiplicity="1" Role="Product" />
-          <End Type="Model.Discount" Multiplicity="*" Role="Discount" />
+          <End Type="Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="Model.Discount" Role="Discount" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -572,8 +572,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favorite_Product_Product">
-          <End Type="Model.Product" Multiplicity="1" Role="Product" />
-          <End Type="Model.Favorite_Product" Multiplicity="*" Role="Favorite_Product" />
+          <End Type="Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="Model.Favorite_Product" Role="Favorite_Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -584,8 +584,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Type">
-          <End Type="Model.TYPE" Multiplicity="1" Role="TYPE" />
-          <End Type="Model.Product" Multiplicity="*" Role="Product" />
+          <End Type="Model.TYPE" Role="TYPE" Multiplicity="1" />
+          <End Type="Model.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TYPE">
               <PropertyRef Name="ID" />

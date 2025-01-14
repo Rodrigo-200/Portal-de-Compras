@@ -67,16 +67,11 @@ namespace Portal_Compras
                     }
                     productToCancel.Is_Deleted = productQuantity == 0 ? true : false;
 
-                    // Update the total refund amount
+                    // Atualizar o valor a devolver ao cliente
                     BUY_PRODUCTS MoneyToReturn = Products_To_Cancel.Where(p => p.PRODUCT_NAME == product.Text).FirstOrDefault();
-                    if (productQuantity == 0)
-                    {
+
                         totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
-                    }
-                    else
-                    {
-                        totalRefund += Convert.ToDecimal(MoneyToReturn.PRICE / MoneyToReturn.QUANTITY);
-                    }
+
 
 
 
@@ -87,14 +82,14 @@ namespace Portal_Compras
                 }
             }
 
-            // Update the user's balance
+            // Atualizar o saldo do cliente
             var client = EntitiesBarEscola.CLIENT.Where(c => c.ID == Generic.current_Logged_Client.ID).FirstOrDefault();
             if (client != null)
             {
                 client.BALANCE += totalRefund;
             }
 
-            // Recalculate the new total for the buy
+            // Atualizar o total da compra
             EntitiesBarEscola.BUYS.FirstOrDefault(b => b.ID == Buy_To_Cancel).TOTAL = newTotal;
 
             EntitiesBarEscola.SaveChanges();
